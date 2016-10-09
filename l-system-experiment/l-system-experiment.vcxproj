@@ -110,6 +110,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\lsystem\rule\ProductionRule.h" />
+    <ClInclude Include="src\lsystem\RewriteEngine.h" />
+    <ClInclude Include="src\lsystem\rule\SimpleProductionRule.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\lsystem\RewriteEngine.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\lsystem\rule\SimpleProductionRule.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
