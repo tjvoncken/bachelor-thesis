@@ -6,12 +6,15 @@
 
 namespace lsystem
 {
+	template <typename A>
+	using tIt = typename std::list<A>::iterator;
+
 	template <class A>
-	class ProductionRule
+	class Production
 	{
 		static_assert(std::is_enum<A>::value, "A must be an enumeration.");
 
 		public:
-			virtual void apply(std::list<A>& list, typename std::list<A>::iterator _position) = NULL;
+			virtual bool apply(std::list<A>& list, tIt<A> _position) = NULL;
 	};
 }
