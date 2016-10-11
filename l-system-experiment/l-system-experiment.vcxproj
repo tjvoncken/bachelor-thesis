@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lsystem\language\Token.cpp" />
+    <ClCompile Include="src\lsystem\production\Production.cpp" />
     <ClCompile Include="src\lsystem\production\SimpleProduction.cpp" />
     <ClCompile Include="src\lsystem\RewriteEngine.cpp" />
     <ClCompile Include="src\main.cpp" />

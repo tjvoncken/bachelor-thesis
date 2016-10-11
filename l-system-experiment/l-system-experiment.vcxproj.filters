@@ -41,5 +41,8 @@
     <ClCompile Include="src\lsystem\RewriteEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\lsystem\production\Production.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

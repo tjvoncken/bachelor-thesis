@@ -8,7 +8,7 @@
 
 namespace lsystem
 {
-	using pVec = std::vector<Production>;
+	using pVec = std::vector<Production*>;
 
 	class RewriteEngine
 	{
@@ -20,7 +20,7 @@ namespace lsystem
 			RewriteEngine();
 
 			/** Adds a new production to the engine. */
-			pVec::iterator addProduction(Production& _production);
+			pVec::iterator addProduction(Production* _production);
 
 			/** Removes a production from the engine. */
 			void removeProduction(pVec::iterator _production);

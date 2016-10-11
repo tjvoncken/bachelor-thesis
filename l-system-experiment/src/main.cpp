@@ -4,15 +4,7 @@
 #include "./lsystem/production/Production.h"
 #include "./lsystem/production/SimpleProduction.h"
 
-class AlphaToken : public lsystem::Token
-{
-	private:
-		char value;
-
-	public:
-		AlphaToken(char _t) : value(_t) {};
-		operator char() const { return value; };
-};
+using Token = lsystem::Token;
 
 void printList(lsystem::tList output)
 {
@@ -24,10 +16,10 @@ int main()
 {
 	lsystem::RewriteEngine engine = lsystem::RewriteEngine();
 
-	auto p1 = lsystem::SimpleProduction(AlphaToken('A'), std::vector<AlphaToken>({ AlphaToken('D'), AlphaToken('A'), AlphaToken('D') }));
-	engine.addProduction(p1);
+	auto p1 = lsystem::SimpleProduction(Token('A'), std::vector<Token>({ Token('D'), Token('A'), Token('D') }));
+	engine.addProduction(&p1);
 
-	lsystem::tList input = lsystem::tList({ AlphaToken('B'), AlphaToken('C'), AlphaToken('A') });
+	lsystem::tList input = lsystem::tList({ Token('B'), Token('A'), Token('A') });
 
 	std::cout << "Input: ";
 	printList(input);
