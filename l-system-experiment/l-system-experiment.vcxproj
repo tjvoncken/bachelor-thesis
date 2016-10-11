@@ -110,11 +110,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\lsystem\language\Token.h" />
     <ClInclude Include="src\lsystem\production\Production.h" />
     <ClInclude Include="src\lsystem\RewriteEngine.h" />
     <ClInclude Include="src\lsystem\production\SimpleProduction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\lsystem\language\Token.cpp" />
+    <ClCompile Include="src\lsystem\production\SimpleProduction.cpp" />
+    <ClCompile Include="src\lsystem\RewriteEngine.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,17 +1,20 @@
 #include <iostream>
-#include "lsystem/RewriteEngine.h"
-#include "lsystem/production/SimpleProduction.h"
+#include "./lsystem/RewriteEngine.h"
+#include "./lsystem/language/Token.h"
+#include "./lsystem/production/Production.h"
+#include "./lsystem/production/SimpleProduction.h"
 
-enum Al
+class AlphaToken : public lsystem::Token
 {
-	A = 'A',
-	B = 'B',
-	C = 'C',
-	D = 'D'
+	private:
+		char value;
+
+	public:
+		AlphaToken(char _t) : value(_t) {};
+		operator char() const { return value; };
 };
 
-template <typename A>
-void printList(std::list<A> output)
+void printList(lsystem::tList output)
 {
 	for (auto it = output.begin(); it != output.end(); it++) { std::cout << (char) (*it); }
 	std::cout << std::endl;
@@ -19,20 +22,20 @@ void printList(std::list<A> output)
 
 int main()
 {
-	lsystem::RewriteEngine<Al> engine = lsystem::RewriteEngine<Al>();
+	lsystem::RewriteEngine engine = lsystem::RewriteEngine();
 
-	auto p1 = new lsystem::SimpleProduction<Al>(Al::A, std::vector<Al>({ Al::D, Al::A, Al::D }));
+	auto p1 = lsystem::SimpleProduction(AlphaToken('A'), std::vector<AlphaToken>({ AlphaToken('D'), AlphaToken('A'), AlphaToken('D') }));
 	engine.addProduction(p1);
 
-	std::list<Al> input = std::list<Al>({Al::B, Al::C, Al::A});
+	lsystem::tList input = lsystem::tList({ AlphaToken('B'), AlphaToken('C'), AlphaToken('A') });
 
 	std::cout << "Input: ";
-	printList<Al>(input);
+	printList(input);
 
 	auto output = engine.rewrite(5, input.begin(), input.end());
 
 	std::cout << "Output: ";
-	printList<Al>(output);
+	printList(output);
 
 	system("PAUSE");
 

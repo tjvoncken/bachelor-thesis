@@ -1,20 +1,15 @@
 #pragma once
 
 #include <list>
-#include <vector>
-#include <type_traits>
+#include "../language//Token.h"
 
 namespace lsystem
 {
-	template <typename A>
-	using tIt = typename std::list<A>::iterator;
+	using tList = typename std::list<Token>;
 
-	template <class A>
 	class Production
 	{
-		static_assert(std::is_enum<A>::value, "A must be an enumeration.");
-
 		public:
-			virtual bool apply(std::list<A>& list, tIt<A> _position) = NULL;
+			virtual bool apply(tList& list, tList::iterator _position) = 0;
 	};
 }
