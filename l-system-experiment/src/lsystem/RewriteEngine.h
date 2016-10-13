@@ -1,15 +1,11 @@
 #pragma once
 
-#include <map>
-#include <list>
-#include <vector>
-
-#include "production/Production.h"
+#include "./types.h"
+#include "./language/Token.h"
+#include "./production/Production.h"
 
 namespace lsystem
 {
-	using pVec = std::vector<Production*>;
-
 	class RewriteEngine
 	{
 		private:

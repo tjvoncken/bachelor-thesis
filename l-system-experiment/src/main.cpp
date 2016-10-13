@@ -1,8 +1,5 @@
 #include <iostream>
-#include "./lsystem/RewriteEngine.h"
-#include "./lsystem/language/Token.h"
-#include "./lsystem/production/Production.h"
-#include "./lsystem/production/SimpleProduction.h"
+#include "./lsystem/lsystem.h"
 
 using Token = lsystem::Token;
 
@@ -21,13 +18,11 @@ int main()
 
 	lsystem::tList input = lsystem::tList({ Token('B'), Token('A'), Token('A') });
 
-	std::cout << "Input: ";
-	printList(input);
+	std::cout << "Input: "; printList(input);
 
 	auto output = engine.rewrite(5, input.begin(), input.end());
 
-	std::cout << "Output: ";
-	printList(output);
+	std::cout << "Output: "; printList(output);
 
 	system("PAUSE");
 

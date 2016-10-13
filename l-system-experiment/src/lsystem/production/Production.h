@@ -1,12 +1,9 @@
 #pragma once
 
-#include <list>
-#include "../language//Token.h"
+#include "../types.h"
 
 namespace lsystem
 {
-	using tList = typename std::list<Token>;
-
 	class Production
 	{
 		public:
