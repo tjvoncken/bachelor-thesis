@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "./types.h"
 #include "./language/Token.h"
 #include "./production/Production.h"
@@ -9,6 +11,8 @@ namespace lsystem
 	class RewriteEngine
 	{
 		private:
+			using pVec = std::vector<std::unique_ptr<Production>>;
+
 			pVec productions;
 
 		public:
@@ -16,10 +20,10 @@ namespace lsystem
 			RewriteEngine();
 
 			/** Adds a new production to the engine. */
-			pVec::iterator addProduction(Production* _production);
+			pVec::iterator addProduction(Production* const _production);
 
 			/** Removes a production from the engine. */
-			void removeProduction(pVec::iterator _production);
+			std::unique_ptr<Production> removeProduction(pVec::iterator _production);
 
 			/**
 			 * Rewrites the std::list of token of type A according to the rewrite rules 

@@ -2,6 +2,7 @@
 
 #include <list>
 #include <vector>
+#include <memory>
 
 namespace lsystem
 {
@@ -10,6 +11,4 @@ namespace lsystem
 
 	using tVec = typename std::vector<Token>;
 	using tList = typename std::list<Token>;
-
-	using pVec = std::vector<Production*>;
 }

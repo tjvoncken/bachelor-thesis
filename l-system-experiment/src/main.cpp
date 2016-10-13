@@ -13,8 +13,8 @@ int main()
 {
 	lsystem::RewriteEngine engine = lsystem::RewriteEngine();
 
-	auto p1 = lsystem::SimpleProduction(Token('A'), std::vector<Token>({ Token('D'), Token('A'), Token('D') }));
-	engine.addProduction(&p1);
+	auto p1 = new lsystem::SimpleProduction(Token('A'), std::vector<Token>({ Token('D'), Token('A'), Token('D') }));
+	engine.addProduction(p1);
 
 	lsystem::tList input = lsystem::tList({ Token('B'), Token('A'), Token('A') });
 

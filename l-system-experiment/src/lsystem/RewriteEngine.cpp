@@ -1,20 +1,24 @@
 #include "./RewriteEngine.h"
 
+#include <memory>
+
 namespace lsystem
 {
 	/** {@inheritdoc} */
 	RewriteEngine::RewriteEngine() : productions() {}
 
 	/** {@inheritdoc} */
-	pVec::iterator RewriteEngine::addProduction(Production* _production)
+	RewriteEngine::pVec::iterator RewriteEngine::addProduction(Production* const _production)
 	{
-		return this->productions.insert(this->productions.end(), _production);
+		this->productions.push_back(std::unique_ptr<Production>(_production));
+		return --this->productions.end();
 	}
 
 	/** {@inheritdoc} */
-	void RewriteEngine::removeProduction(pVec::iterator _production)
+	std::unique_ptr<Production> RewriteEngine::removeProduction(pVec::iterator _production)
 	{
-		this->productions.erase(_production); 
+		this->productions.erase(_production);
+		return std::move(*_production);
 	}
 
 	/** {@inheritdoc} */
