@@ -33,6 +33,24 @@
     <ClInclude Include="src\lsystem\engine\RewriteEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\maze\Language.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maze\TurtleVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maze\MazeTurtle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\coordinates\grid\Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\coordinates\grid\Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\coordinates\grid\grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -48,6 +66,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\lsystem\engine\RewriteEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maze\TurtleVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coordinates\grid\Point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coordinates\grid\Vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maze\MazeTurtle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

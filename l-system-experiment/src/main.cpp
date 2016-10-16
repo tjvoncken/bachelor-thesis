@@ -1,9 +1,11 @@
 #include <iostream>
 #include "./lsystem/lsystem.h"
 
-#include "./TurtleVisualizer.h"
+#include "./maze/Language.h"
+#include "./maze/TurtleVisualizer.h"
 
 using Token = lsystem::Token;
+using tList = lsystem::tList;
 
 void printList(lsystem::tList output)
 {
@@ -18,14 +20,15 @@ int main()
 	auto p1 = new lsystem::SimpleProduction(Token('F'), std::vector<Token>({ Token('F'), Token('F') }));
 	engine.addProduction(p1);
 
-	lsystem::tList input = lsystem::tList({ Token('F'), Token('L'), Token('F'), Token('R'), Token('F') });
+	tList input = tList({ Token('F'), Token('L'), Token('F'), Token('R'), Token('F') });
 
 	std::cout << "Input: "; printList(input);
 
 	auto output = engine.rewrite(1, input.begin(), input.end());
 
 	std::cout << "Output: "; printList(output);
-
+	
+	std::cout << std::endl;
 	auto visualizer = TurtleVisualizer();
 	visualizer.printList(output);
 

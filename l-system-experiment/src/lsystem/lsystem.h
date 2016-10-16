@@ -1,7 +1,5 @@
 #pragma once
 
-#include "./types.h"
-
 #include "./language/Token.h"
 
 #include "./production/Production.h"
