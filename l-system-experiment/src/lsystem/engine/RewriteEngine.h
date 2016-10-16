@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "./types.h"
-#include "./language/Token.h"
-#include "./production/Production.h"
+#include "../types.h"
+#include "../language/Token.h"
+#include "../production/Production.h"
 
 namespace lsystem
 {

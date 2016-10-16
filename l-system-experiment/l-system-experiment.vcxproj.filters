@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\lsystem\RewriteEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\lsystem\production\Production.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -33,6 +30,9 @@
     <ClInclude Include="src\lsystem\lsystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\lsystem\engine\RewriteEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -44,10 +44,10 @@
     <ClCompile Include="src\lsystem\language\Token.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\lsystem\RewriteEngine.cpp">
+    <ClCompile Include="src\lsystem\production\Production.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\lsystem\production\Production.cpp">
+    <ClCompile Include="src\lsystem\engine\RewriteEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

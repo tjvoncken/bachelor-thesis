@@ -113,16 +113,18 @@
     <ClInclude Include="src\lsystem\language\Token.h" />
     <ClInclude Include="src\lsystem\lsystem.h" />
     <ClInclude Include="src\lsystem\production\Production.h" />
-    <ClInclude Include="src\lsystem\RewriteEngine.h" />
+    <ClInclude Include="src\lsystem\engine\RewriteEngine.h" />
     <ClInclude Include="src\lsystem\production\SimpleProduction.h" />
     <ClInclude Include="src\lsystem\types.h" />
+    <ClInclude Include="src\TurtleVisualizer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lsystem\language\Token.cpp" />
     <ClCompile Include="src\lsystem\production\Production.cpp" />
     <ClCompile Include="src\lsystem\production\SimpleProduction.cpp" />
-    <ClCompile Include="src\lsystem\RewriteEngine.cpp" />
+    <ClCompile Include="src\lsystem\engine\RewriteEngine.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\TurtleVisualizer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

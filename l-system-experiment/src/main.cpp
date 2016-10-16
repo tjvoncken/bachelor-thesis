@@ -1,6 +1,8 @@
 #include <iostream>
 #include "./lsystem/lsystem.h"
 
+#include "./TurtleVisualizer.h"
+
 using Token = lsystem::Token;
 
 void printList(lsystem::tList output)
@@ -13,16 +15,19 @@ int main()
 {
 	lsystem::RewriteEngine engine = lsystem::RewriteEngine();
 
-	auto p1 = new lsystem::SimpleProduction(Token('A'), std::vector<Token>({ Token('D'), Token('A'), Token('D') }));
+	auto p1 = new lsystem::SimpleProduction(Token('F'), std::vector<Token>({ Token('F'), Token('F') }));
 	engine.addProduction(p1);
 
-	lsystem::tList input = lsystem::tList({ Token('B'), Token('A'), Token('A') });
+	lsystem::tList input = lsystem::tList({ Token('F'), Token('L'), Token('F'), Token('R'), Token('F') });
 
 	std::cout << "Input: "; printList(input);
 
-	auto output = engine.rewrite(5, input.begin(), input.end());
+	auto output = engine.rewrite(1, input.begin(), input.end());
 
 	std::cout << "Output: "; printList(output);
+
+	auto visualizer = TurtleVisualizer();
+	visualizer.printList(output);
 
 	system("PAUSE");
 
