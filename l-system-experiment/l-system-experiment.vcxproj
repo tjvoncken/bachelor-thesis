@@ -112,6 +112,9 @@
   <ItemGroup>
     <ClInclude Include="src\coordinates\grid\grid.h" />
     <ClInclude Include="src\coordinates\grid\Vector.h" />
+    <ClInclude Include="src\graph\Edge.h" />
+    <ClInclude Include="src\graph\Graph.h" />
+    <ClInclude Include="src\graph\Vertex.h" />
     <ClInclude Include="src\lsystem\language\Token.h" />
     <ClInclude Include="src\lsystem\lsystem.h" />
     <ClInclude Include="src\lsystem\production\Production.h" />
@@ -119,19 +122,26 @@
     <ClInclude Include="src\lsystem\production\SimpleProduction.h" />
     <ClInclude Include="src\lsystem\types.h" />
     <ClInclude Include="src\coordinates\grid\Point.h" />
+    <ClInclude Include="src\maze\GraphBuilder.h" />
     <ClInclude Include="src\maze\Language.h" />
     <ClInclude Include="src\maze\MazeTurtle.h" />
+    <ClInclude Include="src\maze\PointVertex.h" />
     <ClInclude Include="src\maze\TurtleVisualizer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\coordinates\grid\Point.cpp" />
     <ClCompile Include="src\coordinates\grid\Vector.cpp" />
+    <ClCompile Include="src\graph\Edge.cpp" />
+    <ClCompile Include="src\graph\Graph.cpp" />
+    <ClCompile Include="src\graph\Vertex.cpp" />
     <ClCompile Include="src\lsystem\language\Token.cpp" />
     <ClCompile Include="src\lsystem\production\Production.cpp" />
     <ClCompile Include="src\lsystem\production\SimpleProduction.cpp" />
     <ClCompile Include="src\lsystem\engine\RewriteEngine.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\maze\GraphBuilder.cpp" />
     <ClCompile Include="src\maze\MazeTurtle.cpp" />
+    <ClCompile Include="src\maze\PointVertex.cpp" />
     <ClCompile Include="src\maze\TurtleVisualizer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

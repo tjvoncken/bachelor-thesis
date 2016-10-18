@@ -17,7 +17,7 @@ namespace maze
 			MazeTurtle();
 			MazeTurtle(MazeTurtle& turtle);
 
-			MazeTurtle& execute(lsystem::Token token);
+			MazeTurtle& execute(const lsystem::Token& token);
 
 			coordinates::grid::Point getPosition();
 			coordinates::grid::Vector getHeading();

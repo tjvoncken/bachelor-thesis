@@ -12,7 +12,7 @@ namespace maze
 		this->previous = &turtle;
 	}
 
-	MazeTurtle& MazeTurtle::execute(lsystem::Token token)
+	MazeTurtle& MazeTurtle::execute(const lsystem::Token& token)
 	{
 		switch((char) token)
 		{
