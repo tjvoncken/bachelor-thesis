@@ -59,8 +59,8 @@ namespace graph
 		if (it == this->vertices.end()) { throw std::runtime_error("Edge not found within graph. Cannot remove it."); }
 
 		//2. Remove the edges coming from and going to the vertex.
-		for(Edge* e : (*it)->iEdges) { this->removeEdge(e); }
-		for(Edge* e : (*it)->oEdges) { this->removeEdge(e); }
+		for(Edge* e : std::vector<Edge*>((*it)->iEdges)) { this->removeEdge(e); }
+		for(Edge* e : std::vector<Edge*>((*it)->oEdges)) { this->removeEdge(e); }
 
 		//3. Remove the vertex from std::vector vertices.
 		this->vertices.erase(it);

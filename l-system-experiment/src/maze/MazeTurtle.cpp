@@ -5,34 +5,34 @@
 
 namespace maze
 {
-	MazeTurtle::MazeTurtle() : position(0, 0), heading(0, 1) {}
+	MazeTurtle::MazeTurtle() : stack(), position(0, 0), heading(0, 1) {}
 
-	MazeTurtle::MazeTurtle(MazeTurtle& turtle) : position(turtle.position), heading(turtle.heading)
-	{
-		this->previous = &turtle;
-	}
-
-	MazeTurtle& MazeTurtle::execute(const lsystem::Token& token)
+	void MazeTurtle::execute(const lsystem::Token& token)
 	{
 		switch((char) token)
 		{
 			case Language::T_FORWARD:
 				this->position += this->heading;
-				return *this;
+				break;
 			case Language::T_BACKWARD:
 				this->position += -1 * this->heading;
-				return *this;
+				break;
 			case Language::T_LEFT:
 				this->heading = this->heading.rotate(90);
-				return *this;
+				break;
 			case Language::T_RIGHT:
 				this->heading = this->heading.rotate(-90);
-				return *this;
+				break;
 			case Language::T_PUSH:
-				return MazeTurtle(*this);
+				this->stack.push_back(stackElement(this->position, this->heading));
+				break;
 			case Language::T_POP:
-				if(this->previous == 0) { throw std::runtime_error("Cannot POP if there has not been a PUSH."); }
-				return *(this->previous);
+				if(this->stack.size() <= 0) { throw std::runtime_error("Cannot POP if there has not been a PUSH."); }
+
+				this->position = this->stack.back().first;
+				this->heading = this->stack.back().second;
+
+				break;
 			default:
 				throw std::runtime_error("Unknown character encountered.");
 		}

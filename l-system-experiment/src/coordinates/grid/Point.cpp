@@ -5,6 +5,7 @@ namespace coordinates
 	namespace grid
 	{
 		Point::Point(int _x, int _y) : x(_x), y(_y) {}
+		Point::Point(const Point& _point) : x(_point.x), y(_point.y) {}
 
 		Point& Point::operator+=(const Point& point)
 		{

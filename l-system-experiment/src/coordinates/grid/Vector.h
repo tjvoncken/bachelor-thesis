@@ -10,6 +10,7 @@ namespace coordinates
 		{
 			public:
 				Vector(int _x, int _y);
+				Vector(Point _from, Point _to);
 
 				unsigned int length();
 				Vector rotate(float angle);

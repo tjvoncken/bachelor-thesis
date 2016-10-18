@@ -26,7 +26,7 @@ int main()
 
 	std::cout << "Processing lsystem:" << std::endl;
 
-	tList input = tList({ Token('F'), Token('L'), Token('F'), Token('R'), Token('F') });
+	tList input = tList({ Token('F'), Token('['), Token('L'), Token('F'), Token('R'), Token('F'), Token(']'), Token('F') });
 
 	std::cout << "Input: "; printList(input);
 

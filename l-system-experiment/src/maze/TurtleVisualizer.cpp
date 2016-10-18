@@ -14,7 +14,7 @@ void TurtleVisualizer::generate(std::list<lsystem::Token> tokens, std::list<Poin
 
 	for (lsystem::Token token : tokens)
 	{
-		turtle = turtle.execute(token);
+		turtle.execute(token);
 		if(current != turtle.getPosition()) { paths.push_back(turtle.getPosition()); }
 		current = turtle.getPosition();
 	}

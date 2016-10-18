@@ -3,6 +3,7 @@
 #include "./GraphBuilder.h"
 
 #include <map>
+#include <iostream>
 #include "./MazeTurtle.h"
 #include "./PointVertex.h"
 #include "../coordinates/grid/Point.h"
@@ -28,9 +29,6 @@ namespace maze
 		// Vertex reference for keeping track of the previously traversed vertex.
 		auto previousVertex = graph.createVertex<PointVertex>(turtle.getPosition());
 
-		// Step count since the last vertex, for keeping track of distances.
-		int stepCount = 0;
-
 		// Save the initial position.
 		traversed[turtle.getPosition()] = previousVertex;
 
@@ -39,42 +37,52 @@ namespace maze
 		{
 			auto previousPos = turtle.getPosition();
 
-			turtle = turtle.execute(*it);
-			if(previousPos != turtle.getPosition())
+			turtle.execute(*it);
+
+			auto distance = coordinates::grid::Vector(previousPos, turtle.getPosition()).length();
+
+			if(distance > 0)
 			{
-				//1. Increase step count.
-				stepCount++;
+				auto newPos = turtle.getPosition();
 
-				//2. Compare new position to already traversed positions.
-				auto pos = turtle.getPosition();
+				//1. Create or find vertex at new position.
+				if (traversed.count(newPos) == 0) { traversed[newPos] = graph.createVertex<PointVertex>(newPos); }
+				auto newVertex = traversed[newPos];
 
-				if(traversed.count(pos) == 0)
+				if(distance == 1)
 				{
-					//3. If hit a position that was not hit before, make a note of it.
-					traversed[pos] = 0;
+					//2. Link vertex to previousVertex. (Not doing that if we traversed a distance longer than 1.)
+					graph.createEdge<graph::Edge>(previousVertex, newVertex, 1);
 				}
-				else
-				{
-					//3. If hit a position that was hit before, create a vertex if it does not already exist.
-					if(traversed[pos] == 0) { traversed[pos] = graph.createVertex<PointVertex>(pos); }
-					auto vertex = traversed[pos];
 
-					//4. Connect that vertex to the previously hit vertex.
-					graph.createEdge<graph::Edge>(previousVertex, vertex, stepCount);
-
-					//5. Set the previousVertex to the current vertex and reset the step count.
-					stepCount = 0;
-					previousVertex = vertex;
-				}
+				//3. Set previousPosition to the new vertex.
+				previousVertex = newVertex;
 			}
 		}
 
-		//6. Create a final vertex if the current position does not equal the previously recorded vertex.
-		if(turtle.getPosition() != previousVertex->point)
+		//4. Reduce away superfluous nodes.
+		bool change;
+		do
 		{
-			auto endVertex = graph.createVertex<PointVertex>(turtle.getPosition());
-			graph.createEdge<graph::Edge>(previousVertex, endVertex, stepCount);
-		}
+			change = false;
+
+			auto vertices = graph.getVertices();
+			for (auto it = vertices.begin(); it != vertices.end(); it++)
+			{
+				if ((*it)->getIncomingEdges().size() == 1 && (*it)->getOutgoingEdges().size() == 1)
+				{
+					// Node is superfluous, remove it and link its to and from nodes.
+					graph::Edge* iEdge = (*it)->getIncomingEdges().front();
+					graph::Edge* oEdge = (*it)->getOutgoingEdges().front();
+
+					graph.createEdge<graph::Edge>(iEdge->from, oEdge->to, iEdge->weight + oEdge->weight);
+					graph.removeVertex(*it);
+					change = true;
+					break;
+				}
+			}
+		} 
+		while(change);
 
 		return std::move(graph);
 	}

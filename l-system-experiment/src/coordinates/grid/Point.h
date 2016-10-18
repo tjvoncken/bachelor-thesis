@@ -15,9 +15,10 @@ namespace coordinates
 				int x = 0;
 				int y = 0;
 
-				Point(int _x, int _y);
+				Point(int, int);
+				Point(const Point&);
 
-				Point& operator+=(const Point& point);
+				Point& operator+=(const Point&);
 		};
 	}
 }
