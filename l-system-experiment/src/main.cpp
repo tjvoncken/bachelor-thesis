@@ -21,16 +21,19 @@ int main()
 	lsystem::RewriteEngine engine = lsystem::RewriteEngine();
 
 	// Process L-System.
-	auto p1 = new lsystem::SimpleProduction(Token('F'), std::vector<Token>({ Token('F'), Token('F') }));
+	auto p1 = new lsystem::SimpleProduction(Token('F'), std::vector<Token>({ Token('F'), Token('F'), Token('R') }));
 	engine.addProduction(p1);
+
+	auto p3 = new lsystem::SimpleProduction(Token('R'), std::vector<Token>({ Token('['), Token('F'), Token('F'), Token(']'), Token('R') }));
+	engine.addProduction(p3);
 
 	std::cout << "Processing lsystem:" << std::endl;
 
-	tList input = tList({ Token('F'), Token('['), Token('L'), Token('F'), Token('R'), Token('F'), Token(']'), Token('F') });
+	tList input = tList({ Token('F'), Token('['), Token('L'), Token('F'), Token('L'), Token('F'), Token('L'), Token('F'), Token(']'), Token('F') });
 
 	std::cout << "Input: "; printList(input);
 
-	auto output = engine.rewrite(1, input.begin(), input.end());
+	auto output = engine.rewrite(10, input.begin(), input.end());
 
 	std::cout << "Output: "; printList(output);
 

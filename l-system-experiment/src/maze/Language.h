@@ -4,6 +4,9 @@ namespace maze
 {
 	enum Language
 	{
+		T_START = 'S',
+		T_END = 'E',
+
 		// Movement instructions.
 		T_FORWARD = 'F',	// Move the turtle forwards.
 		T_BACKWARD = 'B',	// Move the turtle backwards.

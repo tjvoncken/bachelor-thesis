@@ -12,6 +12,6 @@ class TurtleVisualizer
 		using Point = coordinates::grid::Point;
 
 	public:
-		void generate(std::list<lsystem::Token> list, std::list<Point>& paths);
+		coordinates::grid::Point generate(std::list<lsystem::Token> list, std::list<Point>& paths);
 		void printList(std::list<lsystem::Token> list);
 };

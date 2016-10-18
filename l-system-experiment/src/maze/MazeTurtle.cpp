@@ -11,6 +11,12 @@ namespace maze
 	{
 		switch((char) token)
 		{
+			case Language::T_START:
+				this->position += this->heading;
+				break;
+			case Language::T_END:
+				this->position += this->heading;
+				break;
 			case Language::T_FORWARD:
 				this->position += this->heading;
 				break;
