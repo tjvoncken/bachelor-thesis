@@ -6,16 +6,23 @@
 
 namespace graph
 {
+	/** {@inheritdoc} */
 	Graph::Graph() : edges(), vertices() {}
+
+	/** {@inheritdoc} */
 	Graph::~Graph() {}
+
+	/** {@inheritdoc} */
 	Graph::Graph(const Graph&) {}
 
+	/** {@inheritdoc} */
 	Graph::Graph(Graph&& _graph) : edges(), vertices()
 	{
 		for (auto it = _graph.edges.begin(); it != _graph.edges.end(); it++) { this->edges.push_back(std::move(*it)); }
 		for (auto it = _graph.vertices.begin(); it != _graph.vertices.end(); it++) { this->vertices.push_back(std::move(*it)); }
 	}
 
+	/** {@inheritdoc} */
 	std::vector<Edge*> Graph::getEdges() 
 	{
 		auto edges = std::vector<Edge*>();
@@ -23,6 +30,7 @@ namespace graph
 		return edges;
 	}
 
+	/** {@inheritdoc} */
 	std::vector<Vertex*> Graph::getVertices() 
 	{
 		auto vertices = std::vector<Vertex*>();
@@ -30,6 +38,7 @@ namespace graph
 		return vertices;
 	}
 
+	/** {@inheritdoc} */
 	void Graph::removeEdge(Edge* _edge)
 	{
 		//1. Find an iterator to the edge std::unique_ptr.
@@ -52,6 +61,7 @@ namespace graph
 		this->edges.erase(it);
 	}
 
+	/** {@inheritdoc} */
 	void Graph::removeVertex(Vertex* _vertex)
 	{
 		//1. Find an iterator to the vertex std::unique_ptr.

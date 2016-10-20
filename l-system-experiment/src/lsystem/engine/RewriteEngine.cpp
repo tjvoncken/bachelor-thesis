@@ -1,7 +1,5 @@
 #include "./RewriteEngine.h"
 
-#include <memory>
-
 namespace lsystem
 {
 	/** {@inheritdoc} */
@@ -22,7 +20,7 @@ namespace lsystem
 	}
 
 	/** {@inheritdoc} */
-	tList RewriteEngine::rewrite(unsigned int iterations, tList::iterator _start, tList::iterator _end)
+	RewriteEngine::tList RewriteEngine::rewrite(unsigned int iterations, tList::iterator _start, tList::iterator _end)
 	{
 		tList buffer = tList(_start, _end);
 

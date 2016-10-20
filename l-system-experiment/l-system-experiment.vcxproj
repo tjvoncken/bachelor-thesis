@@ -110,17 +110,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\coordinates\grid\grid.h" />
     <ClInclude Include="src\coordinates\grid\Vector.h" />
     <ClInclude Include="src\graph\Edge.h" />
     <ClInclude Include="src\graph\Graph.h" />
     <ClInclude Include="src\graph\Vertex.h" />
     <ClInclude Include="src\lsystem\language\Token.h" />
-    <ClInclude Include="src\lsystem\lsystem.h" />
     <ClInclude Include="src\lsystem\production\Production.h" />
     <ClInclude Include="src\lsystem\engine\RewriteEngine.h" />
     <ClInclude Include="src\lsystem\production\SimpleProduction.h" />
-    <ClInclude Include="src\lsystem\types.h" />
     <ClInclude Include="src\coordinates\grid\Point.h" />
     <ClInclude Include="src\maze\GraphBuilder.h" />
     <ClInclude Include="src\maze\Language.h" />

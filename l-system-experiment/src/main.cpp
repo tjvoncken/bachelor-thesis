@@ -12,7 +12,7 @@ using tList = lsystem::tList;
 
 void printList(lsystem::tList output)
 {
-	for (auto it = output.begin(); it != output.end(); it++) { std::cout << (char) (*it); }
+	for(auto it = output.begin(); it != output.end(); it++) { std::cout << (char) (*it); }
 	std::cout << std::endl;
 }
 
@@ -33,7 +33,7 @@ int main()
 
 	std::cout << "Input: "; printList(input);
 
-	auto output = engine.rewrite(10, input.begin(), input.end());
+	auto output = engine.rewrite(5, input.begin(), input.end());
 
 	std::cout << "Output: "; printList(output);
 

@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../types.h"
+#include <list>
+#include <vector>
+
 #include "./Production.h"
 #include "../language/Token.h"
 
@@ -9,6 +11,8 @@ namespace lsystem
 	class SimpleProduction : public Production
 	{
 		private:
+			using tList = std::list<Token>;
+
 			/** The token this production originates from. */
 			Token from;
 
@@ -17,9 +21,9 @@ namespace lsystem
 
 		public:
 			/** Constructor for this type of production. */
-			SimpleProduction(Token _from, std::vector<Token> _to);
+			SimpleProduction(Token from, std::vector<Token> to);
 
 			/** Apply implementation for this type of production. */
-			virtual bool apply(tList& list, tList::iterator _position) override;
+			virtual bool apply(tList& list, tList::iterator position) override;
 	};
 }
