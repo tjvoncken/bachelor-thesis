@@ -2,12 +2,7 @@
 
 #include "./GraphBuilder.h"
 
-#include <map>
-#include <iostream>
-#include "./MazeTurtle.h"
-#include "./PointVertex.h"
-#include "../coordinates/grid/Point.h"
-
+/*
 namespace maze
 {
 	struct PointComparator
@@ -87,3 +82,4 @@ namespace maze
 		return std::move(graph);
 	}
 }
+*/

@@ -1,16 +1,18 @@
+#include <list>
 #include <iostream>
-#include "./lsystem/lsystem.h"
 
-#include "./graph/Vertex.h"
-#include "./maze/Language.h"
-#include "./maze/PointVertex.h"
-#include "./maze/GraphBuilder.h"
-#include "./maze/TurtleVisualizer.h"
+#include "./lsystem/engine/RewriteEngine.h"
+#include "./lsystem/production/SimpleProduction.h"
+
+#include "./maze/definition/Language.h"
+#include "./maze/representation/graph/PointVertex.h"
+#include "./maze/representation/graph/GraphBuilder.h"
+#include "./maze/representation/ascii/ASCIIBuilder.h"
 
 using Token = lsystem::Token;
-using tList = lsystem::tList;
+using tList = std::list<lsystem::Token>;
 
-void printList(lsystem::tList output)
+void printList(tList output)
 {
 	for(auto it = output.begin(); it != output.end(); it++) { std::cout << (char) (*it); }
 	std::cout << std::endl;
@@ -29,7 +31,7 @@ int main()
 
 	std::cout << "Processing lsystem:" << std::endl;
 
-	tList input = tList({ Token('F'), Token('['), Token('L'), Token('F'), Token('L'), Token('F'), Token('L'), Token('F'), Token(']'), Token('F') });
+	tList input = tList({ Token('S'), Token('F'), Token('['), Token('L'), Token('F'), Token('L'), Token('F'), Token('L'), Token('F'), Token(']'), Token('F'), Token('E') });
 
 	std::cout << "Input: "; printList(input);
 
@@ -41,11 +43,9 @@ int main()
 	
 	// Print maze structure.
 	std::cout << "Printing maze as ASCII:" << std::endl;
-	auto visualizer = TurtleVisualizer();
-	visualizer.printList(output);
+	std::cout << maze::ASCIIBuilder::build(output) << std::endl;
 
-	std::cout << std::endl;
-
+	/**
 	// Convert maze to graph.
 	std::cout << "Translating maze to graph:" << std::endl;
 	auto graph = maze::GraphBuilder::build(output);
@@ -62,6 +62,7 @@ int main()
 			std::cout << "-- " << edge->weight << " --> " << "(" << toVertex->point.x << ", " << toVertex->point.y << ")" << std::endl;
 		}
 	}
+	*/
 
 	system("PAUSE");
 

@@ -2,21 +2,25 @@
 
 #include <math.h>
 
-
 namespace coordinates
 {
 	namespace grid
 	{
-		Vector::Vector(int _x, int _y) : Point(_x, _y) {}
-		Vector::Vector(Point _from, Point _to) : Point(_to.x - _from.x, _to.y - _from.y) {}
+		/** {@inheritdoc} */
+		Vector::Vector(int _x, int _y) : x(_x), y(_y) {}
 
+		/** {@inheritdoc} */
+		Vector::Vector(const Point& _from, const Point& _to) : x(_to.x - _from.x), y(_to.y - _from.y) {}
+
+		/** {@inheritdoc} */
 		unsigned int Vector::length()
 		{
 			float dist = (float) round(sqrt(this->x * this->x + this->y * this->y));
 			return abs((int) dist);
 		}
 
-		Vector Vector::rotate(float angle)
+		/** {@inheritdoc} */
+		Vector Vector::rotate(const float angle)
 		{
 			float sAngle = (float) sin(angle);
 			float cAngle = (float) cos(angle);
@@ -26,28 +30,55 @@ namespace coordinates
 			return Vector((int) round(nX), (int) round(nY));
 		}
 
+		/** {@inheritdoc} */
+		Vector operator*(const Vector& vector, const int scalar)
+		{
+			return Vector(vector.x * scalar, vector.y * scalar);
+		}
+
+		/** {@inheritdoc} */
+		Vector operator*(const int scalar, const Vector& vector) { return vector * scalar; }
+
+		/** {@inheritdoc} */
+		Vector& operator*=(const Vector& vector, const int scalar) { return vector * scalar; }
+
+		/** {@inheritdoc} */
+		Vector& operator*=(const int scalar, const Vector& vector) { return vector * scalar; }
+
+		/** {@inheritdoc} */
+		Vector operator+(const Vector& lhs, const Vector& rhs)
+		{
+			return Vector(lhs.x + rhs.x, lhs.y + rhs.y);
+		}
+
+		/** {@inheritdoc} */
+		Vector::operator coordinates::grid::Point()
+		{
+			return Point(this->x, this->y);
+		}
+
+		/** {@inheritdoc} */
+		Vector& Vector::operator=(const Vector& other) 
+		{
+			this->x = other.x;
+			this->y = other.y;
+			return *this;
+		}
+
+		/** {@inheritdoc} */
+		Vector& Vector::operator+=(const Vector& other)
+		{
+			this->x += other.x;
+			this->y += other.y;
+			return *this;
+		}
+
+		/** {@inheritdoc} */
 		Vector& Vector::operator*=(const int scalar)
 		{
 			this->x *= scalar;
 			this->y *= scalar;
 			return *this;
-		}
-
-		Vector operator*(Vector vector, const int scalar)
-		{
-			vector *= scalar;
-			return vector;
-		}
-
-		Vector operator*(const int scalar, Vector vector) 
-		{ 
-			return vector * scalar; 
-		}
-
-		Vector operator+(Vector lhs, const Vector& rhs)
-		{
-			lhs += rhs;
-			return lhs;
 		}
 	}
 }

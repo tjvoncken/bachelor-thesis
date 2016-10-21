@@ -119,11 +119,11 @@
     <ClInclude Include="src\lsystem\engine\RewriteEngine.h" />
     <ClInclude Include="src\lsystem\production\SimpleProduction.h" />
     <ClInclude Include="src\coordinates\grid\Point.h" />
-    <ClInclude Include="src\maze\GraphBuilder.h" />
-    <ClInclude Include="src\maze\Language.h" />
-    <ClInclude Include="src\maze\MazeTurtle.h" />
-    <ClInclude Include="src\maze\PointVertex.h" />
-    <ClInclude Include="src\maze\TurtleVisualizer.h" />
+    <ClInclude Include="src\maze\representation\graph\GraphBuilder.h" />
+    <ClInclude Include="src\maze\definition\Language.h" />
+    <ClInclude Include="src\maze\definition\MazeTurtle.h" />
+    <ClInclude Include="src\maze\representation\graph\PointVertex.h" />
+    <ClInclude Include="src\maze\representation\ascii\ASCIIBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\coordinates\grid\Point.cpp" />
@@ -136,10 +136,10 @@
     <ClCompile Include="src\lsystem\production\SimpleProduction.cpp" />
     <ClCompile Include="src\lsystem\engine\RewriteEngine.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\maze\GraphBuilder.cpp" />
-    <ClCompile Include="src\maze\MazeTurtle.cpp" />
-    <ClCompile Include="src\maze\PointVertex.cpp" />
-    <ClCompile Include="src\maze\TurtleVisualizer.cpp" />
+    <ClCompile Include="src\maze\representation\graph\GraphBuilder.cpp" />
+    <ClCompile Include="src\maze\definition\MazeTurtle.cpp" />
+    <ClCompile Include="src\maze\representation\graph\PointVertex.cpp" />
+    <ClCompile Include="src\maze\representation\ascii\ASCIIBuilder.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

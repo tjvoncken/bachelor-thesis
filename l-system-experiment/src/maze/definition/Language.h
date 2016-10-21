@@ -2,10 +2,11 @@
 
 namespace maze
 {
+	/** An enum defining all commands known to the turtle. */
 	enum Language
 	{
-		T_START = 'S',
-		T_END = 'E',
+		T_START = 'S',		// Marks the current position as a starting point in the maze.
+		T_END = 'E',		// Marks the current position as an ending point in the maze.
 
 		// Movement instructions.
 		T_FORWARD = 'F',	// Move the turtle forwards.
