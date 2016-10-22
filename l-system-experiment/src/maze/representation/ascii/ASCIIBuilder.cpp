@@ -146,6 +146,15 @@ namespace maze
 			buffer << std::endl;
 		}
 
+		// Print bottom dividing line.
+		for (auto x = mazeConfig.minX; x <= mazeConfig.maxX; x++)
+		{
+			buffer << char(176) << char(176);
+		}
+
+		buffer << char(176);
+		buffer << std::endl;
+
 		return buffer.str();
 	}
 }
