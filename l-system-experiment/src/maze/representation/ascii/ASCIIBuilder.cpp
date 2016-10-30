@@ -71,7 +71,7 @@ namespace maze
 			else { conf.type = PointType::CONFLICT; }
 
 			// Update configuration based on entrance point of turtle, ignore jumps larger than 1.
-			auto prevPointConf = points.find(prevPos)->second;
+			PointConfig& prevPointConf = points.find(prevPos)->second;
 			auto entraceVec = coordinates::grid::Vector(prevPos, newPos);
 			if(entraceVec == coordinates::grid::Vector(0, 1)) { conf.south = true; prevPointConf.north = true; }
 			else if(entraceVec == coordinates::grid::Vector(0, -1)) { conf.north = true; prevPointConf.south = true; }
@@ -94,34 +94,20 @@ namespace maze
 			for(auto x = mazeConfig.minX; x <= mazeConfig.maxX; x++)
 			{
 				// Print top-left cell corner based on position in maze.
-				if(y == mazeConfig.maxY) 
-				{
-					if (x == mazeConfig.minX) { buffer << char(176); } //218
-					else { buffer << char(176); } //194
-				}
-				else 
-				{
-					if(x == mazeConfig.minX) { buffer << char(176); } //195
-					else { buffer << char(176); } //197
-				}
+				buffer << char(176);
 
 				auto printPos = coordinates::grid::Point(x, y);
-				if(points.count(printPos) == 0) 
-				{
-					buffer << char(176); //196
-				}
+				if(points.count(printPos) == 0) { buffer << char(176); }
 				else 
 				{
 					auto pointConf = points.find(printPos)->second;
 					if(pointConf.north) { buffer << ' '; }
-					else { buffer << char(176); } //196
+					else { buffer << char(176); }
 				}
 			}
 
 			// Print top-right maze corner.
-			if(y == mazeConfig.maxY) { buffer << char(176); } //191
-			else { buffer << char(176); } //180
-			buffer << std::endl;
+			buffer << char(176) << std::endl;
 
 			// Print content line.
 			for (auto x = mazeConfig.minX; x <= mazeConfig.maxX; x++)
@@ -129,100 +115,26 @@ namespace maze
 				auto printPos = coordinates::grid::Point(x, y);
 				if (points.count(printPos) == 0)
 				{
-					buffer << char(176); //179
-					buffer << char(176); //178
+					buffer << char(176) << char(176);
 				}
 				else
 				{
 					auto pointConf = points.find(printPos)->second;
+
 					if (pointConf.west) { buffer << ' '; }
-					else { buffer << char(176); } //179
+					else { buffer << char(176); }
 					buffer << (char) pointConf.type;
 				}
 			}
 
 			// Print right-most maze wall.
-			buffer << char(176); //179
-			buffer << std::endl;
+			buffer << char(176) << std::endl;
 		}
 
 		// Print bottom dividing line.
-		for (auto x = mazeConfig.minX; x <= mazeConfig.maxX; x++)
-		{
-			buffer << char(176) << char(176);
-		}
-
-		buffer << char(176);
-		buffer << std::endl;
+		for (auto x = mazeConfig.minX; x <= mazeConfig.maxX; x++) { buffer << char(176) << char(176); }
+		buffer << char(176) << std::endl;
 
 		return buffer.str();
 	}
 }
-
-/*
-coordinates::grid::Point TurtleVisualizer::generate(std::list<lsystem::Token> tokens, std::list<Point>& paths)
-{
-	auto turtle = maze::MazeTurtle();
-	auto current = turtle.getPosition();
-	paths.push_back(current);
-
-	for (lsystem::Token token : tokens)
-	{
-		turtle.execute(token);
-		if(current != turtle.getPosition()) { paths.push_back(turtle.getPosition()); }
-		current = turtle.getPosition();
-	}
-
-	return turtle.getPosition();
-}
-
-void TurtleVisualizer::printList(std::list<lsystem::Token> tokens)
-{
-	auto paths = std::list<Point>();
-	auto end = this->generate(tokens, paths);
-
-	int maxX = 0;
-	int maxY = 0;
-	int minX = 0;
-	int minY = 0;
-
-	for(Point location : paths) 
-	{
-		int curX = location.x; int curY = location.y;
-		if(curX > maxX) { maxX = curX; }
-		if(curY > maxY) { maxY = curY; }
-		if(curX < minX) { minX = curX; }
-		if(curY < minY) { minY = curY; }
-	}
-
-	// Make sure there is a border around the labyrinth.
-	maxX++; maxY++; minX--; minY--;
-
-	// Print first row.
-	std::cout << '*';
-	for (int x = minX; x <= maxX; x++) { std::cout << '-'; }
-	std::cout << '*' << std::endl;
-
-	// Print all rows inbetween.
-	for(int y = maxY; y >= minY; y--)
-	{
-		std::cout << '|';
-		for(int x = minX; x <= maxX; x++)
-		{
-			if(std::find(paths.begin(), paths.end(), Point(x, y)) != paths.end()) 
-			{ 
-				if (x == 0 && y == 0) { std::cout << 'S'; }
-				else if(x == end.x && y == end.y) { std::cout << 'E';  }
-				else { std::cout << ' '; }
-			}
-			else { std::cout << '+'; }
-		}
-		std::cout << '|' << std::endl;
-	}
-
-	// Print last row.
-	std::cout << '*';
-	for (int x = minX; x <= maxX; x++) { std::cout << '-'; }
-	std::cout << '*' << std::endl;
-}
-*/
