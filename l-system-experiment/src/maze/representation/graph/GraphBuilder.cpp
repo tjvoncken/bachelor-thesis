@@ -1,25 +1,27 @@
 #pragma once
 
+#include <set>
+#include <map>
+#include "./PointVertex.h"
 #include "./GraphBuilder.h"
+#include "../../definition/MazeTurtle.h"
 
-/*
 namespace maze
 {
-	struct PointComparator
-	{
-		bool operator()(coordinates::grid::Point const& lhs, coordinates::grid::Point const& rhs) const
-		{
-			return lhs.x < rhs.x || (lhs.x == rhs.x && lhs.y < rhs.y);
-		}
-	};
+	/** {@inheritdoc} */
+	graph::Graph GraphBuilder::build(const std::list<lsystem::Token>& tokens) 
+	{ 
+		return GraphBuilder::build(tokens.begin(), tokens.end()); 
+	}
 
-	graph::Graph GraphBuilder::build(std::list<lsystem::Token> list)
+	/** {@inheritdoc} */
+	graph::Graph GraphBuilder::build(const std::list<lsystem::Token>::const_iterator begin, const std::list<lsystem::Token>::const_iterator end)
 	{
 		auto graph = graph::Graph();
 		auto turtle = maze::MazeTurtle();
 
 		// Map for keeping track of vertex/position connection.
-		auto traversed = std::map<coordinates::grid::Point, maze::PointVertex*, PointComparator>(PointComparator());
+		auto traversed = std::map<coordinates::grid::Point, maze::PointVertex*>();
 
 		// Vertex reference for keeping track of the previously traversed vertex.
 		auto previousVertex = graph.createVertex<PointVertex>(turtle.getPosition());
@@ -28,7 +30,7 @@ namespace maze
 		traversed[turtle.getPosition()] = previousVertex;
 
 		// Actually parse the lsystem string.
-		for(auto it = list.begin(); it != list.end(); it++)
+		for(auto it = begin; it != end; it++)
 		{
 			auto previousPos = turtle.getPosition();
 
@@ -48,6 +50,7 @@ namespace maze
 				{
 					//2. Link vertex to previousVertex. (Not doing that if we traversed a distance longer than 1.)
 					graph.createEdge<graph::Edge>(previousVertex, newVertex, 1);
+					graph.createEdge<graph::Edge>(newVertex, previousVertex, 1);
 				}
 
 				//3. Set previousPosition to the new vertex.
@@ -56,30 +59,10 @@ namespace maze
 		}
 
 		//4. Reduce away superfluous nodes.
-		bool change;
-		do
-		{
-			change = false;
-
-			auto vertices = graph.getVertices();
-			for (auto it = vertices.begin(); it != vertices.end(); it++)
-			{
-				if ((*it)->getIncomingEdges().size() == 1 && (*it)->getOutgoingEdges().size() == 1)
-				{
-					// Node is superfluous, remove it and link its to and from nodes.
-					graph::Edge* iEdge = (*it)->getIncomingEdges().front();
-					graph::Edge* oEdge = (*it)->getOutgoingEdges().front();
-
-					graph.createEdge<graph::Edge>(iEdge->from, oEdge->to, iEdge->weight + oEdge->weight);
-					graph.removeVertex(*it);
-					change = true;
-					break;
-				}
-			}
-		} 
-		while(change);
+		//   * Node is superfluous if there is exactly two path linking it to other nodes,
+		//	   if that is the case, the node simply acts as a part of the path, and does not represent a decision.
+		//TODO
 
 		return std::move(graph);
 	}
 }
-*/

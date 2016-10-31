@@ -15,8 +15,7 @@ namespace coordinates
 		/** {@inheritdoc} */
 		unsigned int Vector::length()
 		{
-			float dist = (float) round(sqrt(this->x * this->x + this->y * this->y));
-			return abs((int) dist);
+			return abs(this->x + this->y);
 		}
 
 		/** {@inheritdoc} */

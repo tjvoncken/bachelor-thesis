@@ -56,8 +56,11 @@ namespace graph
 				T* edge = new T(std::forward<Args>(args)...);
 
 				// Check if to and from vertices of newly created edge are on graph, throw an error otherwise and remove the edge again.
-				if(std::find(this->vertices.begin(), this->vertices.end(), edge->to) == this->vertices.end()) { delete edge; throw std::runtime_error("'to' vertex not in graph."); }
-				if(std::find(this->vertices.begin(), this->vertices.end(), edge->from) == this->vertices.end()) { delete edge; throw std::runtime_error("'from' vertex not in graph."); }
+				auto toIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->to; });
+				if(toIt == this->vertices.end()) { delete edge; throw std::runtime_error("'to' vertex not in graph."); }
+
+				auto fromIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->from; });
+				if(fromIt == this->vertices.end()) { delete edge; throw std::runtime_error("'from' vertex not in graph."); }
 
 				// Add the edge to the relevant vertices.
 				edge->to->iEdges.push_back(edge);

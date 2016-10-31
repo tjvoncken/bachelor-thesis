@@ -9,6 +9,10 @@ namespace maze
 	class GraphBuilder
 	{
 		public:
-			//static graph::Graph build(std::list<lsystem::Token>::iterator begin, std::list<lsystem::Token>::iterator end);
+			/** Builds a Graph object from the token list. */
+			static graph::Graph build(const std::list<lsystem::Token>& tokens);
+
+			/** Builds a Graph object from the token list. */
+			static graph::Graph build(const std::list<lsystem::Token>::const_iterator begin, const std::list<lsystem::Token>::const_iterator end);
 	};
 }
