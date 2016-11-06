@@ -1,5 +1,6 @@
 #pragma once
 
+#include "./VertexType.h"
 #include "../../../graph/Vertex.h"
 #include "../../../coordinates/grid/Point.h"
 
@@ -9,16 +10,16 @@ namespace maze
 	class PointVertex : public graph::Vertex
 	{
 		public:
-			/** These vertices should not be wiped from the graph when cleaning it up. */
-			const bool fixed;
+			/** Type of the Vertex. This marks start and end vertices and prevents them from being wiped from the map. */
+			VertexType type;
 
 			/** The point on the grid this vertex represents. */
-			const coordinates::grid::Point point;
+			coordinates::grid::Point point;
 
-			/** Simple constructor with "fixed" defaulting to false. */
-			PointVertex(coordinates::grid::Point point);
+			/** Simple constructor with the type defaulting to DEFAULT. */
+			PointVertex(const coordinates::grid::Point point);
 
-			/** Simple constructor with "fixed" as a paramter. */
-			PointVertex(coordinates::grid::Point point, bool fixed);
+			/** Simple constructor with the type as a parameter. */
+			PointVertex(const coordinates::grid::Point point, const VertexType type);
 	};
 }

@@ -3,8 +3,8 @@
 namespace maze
 {
 	/** {@inheritdoc} */
-	PointVertex::PointVertex(coordinates::grid::Point _point) : PointVertex(_point, false) {}
+	PointVertex::PointVertex(coordinates::grid::Point _p) : PointVertex(_p, VertexType::DEFAULT) {}
 
 	/** {@inheritdoc} */
-	PointVertex::PointVertex(coordinates::grid::Point _point, bool _fixed) : fixed(_fixed), point(_point), Vertex() {}
+	PointVertex::PointVertex(coordinates::grid::Point _p, VertexType _t) : type(_t), point(_p), Vertex() {}
 }

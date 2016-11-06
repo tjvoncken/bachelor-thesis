@@ -5,6 +5,7 @@
 #include "./lsystem/production/SimpleProduction.h"
 
 #include "./maze/definition/Language.h"
+#include "./maze/representation/graph/VertexType.h"
 #include "./maze/representation/graph/PointVertex.h"
 #include "./maze/representation/graph/GraphBuilder.h"
 #include "./maze/representation/ascii/ASCIIBuilder.h"
@@ -53,6 +54,10 @@ int main()
 	for(graph::Vertex* vertex : graph.getVertices())
 	{
 		auto pVertex = dynamic_cast<maze::PointVertex*>(vertex);
+		if(pVertex->type == maze::VertexType::START) { std::cout << "(S) "; }
+		else if(pVertex->type == maze::VertexType::END) { std::cout << "(E) "; }
+		else if (pVertex->type == maze::VertexType::CONFLICT) { std::cout << "(???) "; }
+
 		std::cout << "(" << pVertex->point.x << ", " << pVertex->point.y << "):" << std::endl;
 
 		for(graph::Edge* edge : vertex->getEdges())

@@ -35,6 +35,33 @@ namespace maze
 		// Save the initial position.
 		lookup.insert(VertexMap::value_type(turtle.getPosition(), graph.createVertex<PointVertex>(turtle.getPosition())));
 
+		// Register start and end processing functions.
+		auto sFn = [&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState) 
+		{
+			// Current position should always exist, since we could only have gotten there by moving to it in the first place.
+			assert(lookup.count(nState.position) != 0);
+
+			auto vertex = dynamic_cast<PointVertex*>(lookup.find(oState.position)->second);
+			if(vertex->type == VertexType::DEFAULT) { vertex->type = VertexType::START; }
+			else if(vertex->type == VertexType::END) { vertex->type = VertexType::CONFLICT; }
+
+			return nState;
+		};
+		turtle.registerTokenFn(lsystem::Token(Language::T_START), sFn);
+
+		auto eFn = [&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState)
+		{
+			// Current position should always exist, since we could only have gotten there by moving to it in the first place.
+			assert(lookup.count(nState.position) != 0);
+
+			auto vertex = dynamic_cast<PointVertex*>(lookup.find(oState.position)->second);
+			if (vertex->type == VertexType::DEFAULT) { vertex->type = VertexType::END; }
+			else if (vertex->type == VertexType::START) { vertex->type = VertexType::CONFLICT; }
+
+			return nState;
+		};
+		turtle.registerTokenFn(lsystem::Token(Language::T_END), eFn);
+
 		// Register movement processing functions, we're not interested in the turning at the moment, just the graph building.
 		auto mvFunc = [&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState)
 		{

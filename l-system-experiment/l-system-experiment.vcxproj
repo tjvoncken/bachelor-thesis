@@ -125,6 +125,7 @@
     <ClInclude Include="src\maze\definition\MazeTurtle.h" />
     <ClInclude Include="src\maze\representation\graph\PointVertex.h" />
     <ClInclude Include="src\maze\representation\ascii\ASCIIBuilder.h" />
+    <ClInclude Include="src\maze\representation\graph\VertexType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\coordinates\grid\Point.cpp" />
