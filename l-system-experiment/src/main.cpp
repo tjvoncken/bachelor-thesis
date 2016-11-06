@@ -45,11 +45,12 @@ int main()
 	std::cout << "Printing maze as ASCII:" << std::endl;
 	std::cout << maze::ASCIIBuilder::build(output) << std::endl;
 
+	/*
 	// Convert maze to graph.
 	std::cout << "Translating maze to graph:" << std::endl;
 	auto graph = maze::GraphBuilder::build(output);
 
-	// Orint the graph information.
+	// Print the graph information.
 	for(graph::Vertex* vertex : graph.getVertices())
 	{
 		auto pVertex = dynamic_cast<maze::PointVertex*>(vertex);
@@ -61,6 +62,7 @@ int main()
 			std::cout << "-- " << edge->weight << " --> " << "(" << toVertex->point.x << ", " << toVertex->point.y << ")" << std::endl;
 		}
 	}
+	*/
 
 	system("PAUSE");
 

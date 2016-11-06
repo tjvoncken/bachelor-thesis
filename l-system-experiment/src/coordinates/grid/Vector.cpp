@@ -19,7 +19,7 @@ namespace coordinates
 		}
 
 		/** {@inheritdoc} */
-		Vector Vector::rotate(const float angle)
+		Vector Vector::rotate(const float angle) const
 		{
 			float sAngle = (float) sin(angle);
 			float cAngle = (float) cos(angle);

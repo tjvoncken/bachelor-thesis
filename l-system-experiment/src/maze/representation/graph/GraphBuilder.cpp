@@ -20,6 +20,7 @@ namespace maze
 		auto graph = graph::Graph();
 		auto turtle = maze::MazeTurtle();
 
+		/*
 		// Map for keeping track of vertex/position connection.
 		auto traversed = std::map<coordinates::grid::Point, maze::PointVertex*>();
 
@@ -62,6 +63,7 @@ namespace maze
 		//   * Node is superfluous if there is exactly two path linking it to other nodes,
 		//	   if that is the case, the node simply acts as a part of the path, and does not represent a decision.
 		//TODO
+		*/
 
 		return std::move(graph);
 	}

@@ -57,6 +57,9 @@
     <ClInclude Include="src\maze\representation\ascii\ASCIIBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\maze\definition\TurtleState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

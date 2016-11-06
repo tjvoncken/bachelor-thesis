@@ -119,6 +119,7 @@
     <ClInclude Include="src\lsystem\engine\RewriteEngine.h" />
     <ClInclude Include="src\lsystem\production\SimpleProduction.h" />
     <ClInclude Include="src\coordinates\grid\Point.h" />
+    <ClInclude Include="src\maze\definition\TurtleState.h" />
     <ClInclude Include="src\maze\representation\graph\GraphBuilder.h" />
     <ClInclude Include="src\maze\definition\Language.h" />
     <ClInclude Include="src\maze\definition\MazeTurtle.h" />

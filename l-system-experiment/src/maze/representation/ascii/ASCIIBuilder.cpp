@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 
+#include "../../definition/Language.h"
 #include "../../definition/MazeTurtle.h"
 #include "../../../coordinates/grid/Point.h"
 #include "../../../coordinates/grid/Vector.h"
@@ -54,36 +55,62 @@ namespace maze
 
 		points.insert(PointsMap::value_type(turtle.getPosition(), PointConfig()));
 
-		// Build the point map.
-		for(auto pos = begin; pos != end; pos++)
+		// Register start function.
+		turtle.registerTokenFn
+		(
+			lsystem::Token(Language::T_START), 
+			[&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState)
+			{
+				auto& pConf = points[oState.position];
+
+				if(pConf.type == PointType::DEFAULT || pConf.type == PointType::START) { pConf.type = PointType::START; }
+				else { pConf.type = PointType::CONFLICT; }
+
+				return nState;
+			}
+		);
+
+		// Register end function.
+		turtle.registerTokenFn
+		(
+			lsystem::Token(Language::T_END),
+			[&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState)
+			{
+				auto& pConf = points[oState.position];
+
+				if (pConf.type == PointType::DEFAULT || pConf.type == PointType::END) { pConf.type = PointType::END; }
+				else { pConf.type = PointType::CONFLICT; }
+
+				return nState;
+			}
+		);
+
+		auto mvFn = [&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState)
 		{
-			auto prevPos = turtle.getPosition();
-			turtle.execute(*pos);
-			auto newPos = turtle.getPosition();
+			auto& oConf = points[oState.position];
+			auto& nConf = points[nState.position];
 
-			if(points.count(newPos) == 0) { points.insert(PointsMap::value_type(newPos, PointConfig())); }
-			PointConfig& conf = points.find(newPos)->second;
-
-			// Update type of the point.
-			if (!turtle.isStart() && !turtle.isEnd()) { conf.type = PointType::DEFAULT; }
-			else if(turtle.isStart() && !turtle.isEnd()) { conf.type = PointType::START; }
-			else if (turtle.isEnd() && !turtle.isStart()) { conf.type = PointType::END; }
-			else { conf.type = PointType::CONFLICT; }
-
-			// Update configuration based on entrance point of turtle, ignore jumps larger than 1.
-			PointConfig& prevPointConf = points.find(prevPos)->second;
-			auto entraceVec = coordinates::grid::Vector(prevPos, newPos);
-			if(entraceVec == coordinates::grid::Vector(0, 1)) { conf.south = true; prevPointConf.north = true; }
-			else if(entraceVec == coordinates::grid::Vector(0, -1)) { conf.north = true; prevPointConf.south = true; }
-			else if (entraceVec == coordinates::grid::Vector(1, 0)) { conf.west = true; prevPointConf.east = true; }
-			else if (entraceVec == coordinates::grid::Vector(-1, 0)) { conf.east = true; prevPointConf.west = true; }
+			auto entraceVec = coordinates::grid::Vector(oState.position, nState.position);
+			if (entraceVec == coordinates::grid::Vector(0, 1)) { nConf.south = true; oConf.north = true; }
+			else if (entraceVec == coordinates::grid::Vector(0, -1)) { nConf.north = true; oConf.south = true; }
+			else if (entraceVec == coordinates::grid::Vector(1, 0)) { nConf.west = true; oConf.east = true; }
+			else if (entraceVec == coordinates::grid::Vector(-1, 0)) { nConf.east = true; oConf.west = true; }
 
 			// Update the maze's min/max X and Y.
-			if(newPos.x < mazeConfig.minX) { mazeConfig.minX = newPos.x; }
-			if(newPos.x > mazeConfig.maxX) { mazeConfig.maxX = newPos.x; }
-			if(newPos.y < mazeConfig.minY) { mazeConfig.minY = newPos.y; }
-			if(newPos.y > mazeConfig.maxY) { mazeConfig.maxY = newPos.y; }
-		}
+			if (nState.position.x < mazeConfig.minX) { mazeConfig.minX = nState.position.x; }
+			if (nState.position.x > mazeConfig.maxX) { mazeConfig.maxX = nState.position.x; }
+			if (nState.position.y < mazeConfig.minY) { mazeConfig.minY = nState.position.y; }
+			if (nState.position.y > mazeConfig.maxY) { mazeConfig.maxY = nState.position.y; }
+
+			return nState;
+		};
+
+		turtle.registerTokenFn(lsystem::Token(Language::T_FORWARD), mvFn);
+		turtle.registerTokenFn(lsystem::Token(Language::T_BACKWARD), mvFn);
+		
+
+		// Build the point map.
+		for(auto pos = begin; pos != end; pos++) { turtle.execute(*pos); }
 
 		// Actually build the string.
 		std::stringstream buffer;

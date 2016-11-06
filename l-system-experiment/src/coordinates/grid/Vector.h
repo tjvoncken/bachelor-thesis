@@ -31,7 +31,7 @@ namespace coordinates
 				unsigned int length();
 
 				/** Rotate the vector along the z-axis (perpendicular to the 2D plane) by "angle" degrees. */
-				Vector rotate(const float angle);
+				Vector rotate(const float angle) const;
 
 				/** Convert the vector to a point using (0, 0) as the origin point. */
 				operator coordinates::grid::Point();

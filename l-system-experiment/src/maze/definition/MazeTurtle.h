@@ -1,8 +1,11 @@
 #pragma once
 
+#include <map>
 #include <list>
 #include <vector>
+#include <functional>
 
+#include "./TurtleState.h"
 #include "../../lsystem/language/Token.h"
 #include "../../coordinates/grid/Point.h"
 #include "../../coordinates/grid/Vector.h"
@@ -13,31 +16,26 @@ namespace maze
 	class MazeTurtle
 	{
 		private:
+			using TokenFn = std::function<TurtleState(const lsystem::Token&, const TurtleState&, const TurtleState&)>;
+
+			/** Function map, mapping tokens to functions to be executed. */
+			std::map<char, std::vector<TokenFn>> tokenFns;
+
 			/** A stack for the turtle's position and heading, so it can jump back when that command is given. */
-			using stackElement = std::pair<coordinates::grid::Point, coordinates::grid::Vector>;
-			std::list<stackElement> stack;
+			std::list<TurtleState> stack;
 
-			std::vector<coordinates::grid::Point> ends;
-			std::vector<coordinates::grid::Point> starts;
-
-			/** The current position of the turtle. */
-			coordinates::grid::Point position;
-
-			/** The current heading of the turtle. */
-			coordinates::grid::Vector heading;
+			/** The current state of the turtle. */
+			TurtleState state;
 
 		public:
 			/** A simple constructor. */
 			MazeTurtle();
 
+			/** Registers a function to be executed by this turtle upon reaching a matching token. */
+			void registerTokenFn(const lsystem::Token, TokenFn);
+
 			/** Executes the token as a command on the turtle. Unknown or invalid tokens will throw a runtime_error. */
-			void execute(const lsystem::Token& token);
-
-			/** Returns true if the current position of the turtle is a starting point. */
-			bool isStart();
-
-			/** Returns true if the current position of the turtle is an ending point. */
-			bool isEnd();
+			void execute(const lsystem::Token&);
 
 			/** Returns the current position of the turtle. */
 			coordinates::grid::Point getPosition();
