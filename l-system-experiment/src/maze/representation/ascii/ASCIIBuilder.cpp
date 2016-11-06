@@ -85,6 +85,7 @@ namespace maze
 			}
 		);
 
+		// Register forward and backward function.
 		auto mvFn = [&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState)
 		{
 			auto& oConf = points[oState.position];

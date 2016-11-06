@@ -6,8 +6,8 @@
 namespace graph
 {
 	/** {@inheritdoc} */
-	Edge::Edge(Vertex* _from, Vertex* _to) : Edge(_from, _to, 1) { }
+	Edge::Edge(Vertex* _a, Vertex* _b) : Edge(_a, _b, 1) { }
 
 	/** {@inheritdoc} */
-	Edge::Edge(Vertex* _from, Vertex* _to, const int _weight) : from(_from), to(_to), weight(_weight) {}
+	Edge::Edge(Vertex* _a, Vertex* _b, const int _w) : a(_a), b(_b), weight(_w) {}
 }

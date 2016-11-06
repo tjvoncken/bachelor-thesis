@@ -13,7 +13,7 @@ namespace coordinates
 		Vector::Vector(const Point& _from, const Point& _to) : x(_to.x - _from.x), y(_to.y - _from.y) {}
 
 		/** {@inheritdoc} */
-		unsigned int Vector::length()
+		unsigned int Vector::length() const
 		{
 			return abs(this->x + this->y);
 		}
@@ -27,6 +27,13 @@ namespace coordinates
 			float nX = this->x * cAngle - this->y * sAngle;
 			float nY = this->x * sAngle + y * cAngle;
 			return Vector((int) round(nX), (int) round(nY));
+		}
+
+		/** {@inheritdoc} */
+		float Vector::angle(const Vector& other) const
+		{
+			int dotProduct = this->x * other.x + this->y * other.y;
+			return acos(dotProduct / (this->length() * other.length()));
 		}
 
 		/** {@inheritdoc} */

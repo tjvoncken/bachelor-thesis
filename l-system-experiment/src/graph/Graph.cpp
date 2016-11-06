@@ -2,8 +2,6 @@
 
 #include "./Graph.h"
 
-#include <algorithm>
-
 namespace graph
 {
 	/** {@inheritdoc} */
@@ -45,17 +43,17 @@ namespace graph
 		auto it = std::find_if(this->edges.begin(), this->edges.end(), [&_edge](const std::unique_ptr<Edge>& ptr) { return ptr.get() == _edge; });
 		if(it == this->edges.end()) { throw std::runtime_error("Edge not found within graph. Cannot remove it."); }
 
-		//2. Remove the edge from its from vertex.
-		std::vector<Edge*>& oEdges = (*it)->from->oEdges;
-		auto oeit = std::find(oEdges.begin(), oEdges.end(), _edge);
-		if (oeit == oEdges.end()) { throw std::runtime_error("SANITY_CHECK"); }
-		oEdges.erase(oeit);
+		//2. Remove the edge from its a vertex.
+		std::vector<Edge*>& aEdges = (*it)->a->edges;
+		auto aeit = std::find(aEdges.begin(), aEdges.end(), _edge);
+		if (aeit == aEdges.end()) { throw std::runtime_error("SANITY_CHECK"); }
+		aEdges.erase(aeit);
 
-		//3. Remove the edge from its to vertex.
-		std::vector<Edge*>& iEdges = (*it)->to->iEdges;
-		auto ieit = std::find(iEdges.begin(), iEdges.end(), _edge);
-		if (ieit == iEdges.end()) { throw std::runtime_error("SANITY_CHECK"); }
-		iEdges.erase(ieit);
+		//3. Remove the edge from its b vertex.
+		std::vector<Edge*>& bEdges = (*it)->b->edges;
+		auto beit = std::find(bEdges.begin(), bEdges.end(), _edge);
+		if (beit == bEdges.end()) { throw std::runtime_error("SANITY_CHECK"); }
+		bEdges.erase(beit);
 
 		//4. Remove the edge from std::vector edges.
 		this->edges.erase(it);
@@ -69,8 +67,7 @@ namespace graph
 		if (it == this->vertices.end()) { throw std::runtime_error("Edge not found within graph. Cannot remove it."); }
 
 		//2. Remove the edges coming from and going to the vertex.
-		for(Edge* e : std::vector<Edge*>((*it)->iEdges)) { this->removeEdge(e); }
-		for(Edge* e : std::vector<Edge*>((*it)->oEdges)) { this->removeEdge(e); }
+		for(Edge* e : std::vector<Edge*>((*it)->edges)) { this->removeEdge(e); }
 
 		//3. Remove the vertex from std::vector vertices.
 		this->vertices.erase(it);

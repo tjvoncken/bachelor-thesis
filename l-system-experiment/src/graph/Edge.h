@@ -6,7 +6,7 @@ namespace graph
 	class Vertex;
 
 	/**
-	 * This class represents a directional, weighted edge in a graph.
+	 * This class represents an undirected, weighted edge in a graph.
 	 * Its creation and destruction are managed by the Graph object.
 	 */
 	class Edge
@@ -14,15 +14,15 @@ namespace graph
 		friend class Graph;
 
 		public:
-			Vertex* const to;
-			Vertex* const from;
+			Vertex* const a;
+			Vertex* const b;
 			const int weight;
 
 		protected:
-			/** A directional edge constructor with a default weight of 1. */
-			Edge(Vertex* from, Vertex* to);
+			/** An edge constructor with a default weight of 1. */
+			Edge(Vertex*, Vertex*);
 
-			/** A directional, weighted edge constructor with a default weight of 1. */
-			Edge(Vertex* from, Vertex* to, const int weight);
+			/** A weighted edge constructor. */
+			Edge(Vertex*, Vertex*, const int);
 	};
 }

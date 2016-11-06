@@ -28,10 +28,13 @@ namespace coordinates
 				Vector(const Point& from, const Point& to);
 
 				/** Returns the length of the current vector. */
-				unsigned int length();
+				unsigned int length() const;
 
 				/** Rotate the vector along the z-axis (perpendicular to the 2D plane) by "angle" degrees. */
 				Vector rotate(const float angle) const;
+
+				/** Calculate the angle between this vector and another. */
+				float angle(const Vector&) const;
 
 				/** Convert the vector to a point using (0, 0) as the origin point. */
 				operator coordinates::grid::Point();

@@ -35,7 +35,7 @@ int main()
 
 	std::cout << "Input: "; printList(input);
 
-	auto output = engine.rewrite(5, input.begin(), input.end());
+	auto output = engine.rewrite(1, input.begin(), input.end());
 
 	std::cout << "Output: "; printList(output);
 
@@ -45,7 +45,6 @@ int main()
 	std::cout << "Printing maze as ASCII:" << std::endl;
 	std::cout << maze::ASCIIBuilder::build(output) << std::endl;
 
-	/*
 	// Convert maze to graph.
 	std::cout << "Translating maze to graph:" << std::endl;
 	auto graph = maze::GraphBuilder::build(output);
@@ -56,13 +55,14 @@ int main()
 		auto pVertex = dynamic_cast<maze::PointVertex*>(vertex);
 		std::cout << "(" << pVertex->point.x << ", " << pVertex->point.y << "):" << std::endl;
 
-		for(graph::Edge* edge : vertex->getOutgoingEdges())
+		for(graph::Edge* edge : vertex->getEdges())
 		{
-			auto toVertex = dynamic_cast<maze::PointVertex*>(edge->to);
-			std::cout << "-- " << edge->weight << " --> " << "(" << toVertex->point.x << ", " << toVertex->point.y << ")" << std::endl;
+			auto tVertex = dynamic_cast<maze::PointVertex*>(edge->b);
+			if (tVertex == pVertex) { tVertex = dynamic_cast<maze::PointVertex*>(edge->a); }
+
+			std::cout << "<-- " << edge->weight << " --> " << "(" << tVertex->point.x << ", " << tVertex->point.y << ")" << std::endl;
 		}
 	}
-	*/
 
 	system("PAUSE");
 

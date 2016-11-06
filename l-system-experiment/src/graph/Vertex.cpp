@@ -5,11 +5,8 @@
 namespace graph
 {
 	/** {@inheritdoc} */
-	Vertex::Vertex() : iEdges(), oEdges() {}
+	Vertex::Vertex() : edges() {}
 
 	/** {@inheritdoc} */
-	std::vector<Edge*> Vertex::getIncomingEdges() { return this->iEdges; }
-
-	/** {@inheritdoc} */
-	std::vector<Edge*> Vertex::getOutgoingEdges() { return this->oEdges; }
+	std::vector<Edge*> Vertex::getEdges() { return this->edges; }
 }

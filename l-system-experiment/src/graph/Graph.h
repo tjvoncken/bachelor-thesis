@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <algorithm>
 #include <type_traits>
 
 #include "./Edge.h"
@@ -56,15 +57,15 @@ namespace graph
 				T* edge = new T(std::forward<Args>(args)...);
 
 				// Check if to and from vertices of newly created edge are on graph, throw an error otherwise and remove the edge again.
-				auto toIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->to; });
-				if(toIt == this->vertices.end()) { delete edge; throw std::runtime_error("'to' vertex not in graph."); }
+				auto toIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->a; });
+				if(toIt == this->vertices.end()) { delete edge; throw std::runtime_error("'a' vertex not in graph."); }
 
-				auto fromIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->from; });
-				if(fromIt == this->vertices.end()) { delete edge; throw std::runtime_error("'from' vertex not in graph."); }
+				auto fromIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->b; });
+				if(fromIt == this->vertices.end()) { delete edge; throw std::runtime_error("'b' vertex not in graph."); }
 
 				// Add the edge to the relevant vertices.
-				edge->to->iEdges.push_back(edge);
-				edge->from->oEdges.push_back(edge);
+				edge->a->edges.push_back(edge);
+				edge->b->edges.push_back(edge);
 
 				// Add the edge to the graph and pass control over the pointer to a manager.
 				this->edges.push_back(std::unique_ptr<Edge>(edge));
