@@ -36,10 +36,10 @@ namespace graph
 
 		public:
 			/** Returns a vector containing all Edges in the graph. */
-			std::vector<Edge*> getEdges();
+			std::vector<Edge*> getEdges() const;
 
 			/** Returns a vector containing all Vertices in the graph. */
-			std::vector<Vertex*> getVertices();
+			std::vector<Vertex*> getVertices() const;
 
 			/** Removes the Edge from this graph. */
 			void removeEdge(Edge*);

@@ -51,16 +51,22 @@
     <ClInclude Include="src\maze\representation\graph\GraphBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\maze\representation\graph\PointVertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\maze\representation\ascii\ASCIIBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\maze\definition\TurtleState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\maze\representation\graph\VertexType.h">
+    <ClInclude Include="src\maze\representation\graph\helper\PointVertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maze\representation\graph\helper\MazeGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maze\representation\graph\helper\VertexType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\shortestPathLength.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,10 +107,10 @@
     <ClCompile Include="src\maze\representation\graph\GraphBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\maze\representation\graph\PointVertex.cpp">
+    <ClCompile Include="src\maze\representation\ascii\ASCIIBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\maze\representation\ascii\ASCIIBuilder.cpp">
+    <ClCompile Include="src\maze\representation\graph\helper\PointVertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

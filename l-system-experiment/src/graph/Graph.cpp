@@ -21,7 +21,7 @@ namespace graph
 	}
 
 	/** {@inheritdoc} */
-	std::vector<Edge*> Graph::getEdges() 
+	std::vector<Edge*> Graph::getEdges() const
 	{
 		auto edges = std::vector<Edge*>();
 		for(auto it = this->edges.begin(); it != this->edges.end(); it++) { edges.push_back(it->get()); }
@@ -29,7 +29,7 @@ namespace graph
 	}
 
 	/** {@inheritdoc} */
-	std::vector<Vertex*> Graph::getVertices() 
+	std::vector<Vertex*> Graph::getVertices() const
 	{
 		auto vertices = std::vector<Vertex*>();
 		for (auto it = this->vertices.begin(); it != this->vertices.end(); it++) { vertices.push_back(it->get()); }

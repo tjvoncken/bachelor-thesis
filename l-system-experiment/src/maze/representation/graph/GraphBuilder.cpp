@@ -4,8 +4,9 @@
 #include <map>
 #include <assert.h>
 
-#include "./PointVertex.h"
 #include "./GraphBuilder.h"
+#include "./helper/VertexType.h"
+#include "./helper/PointVertex.h"
 
 #include "../../definition/Language.h"
 #include "../../definition/MazeTurtle.h"
@@ -16,16 +17,16 @@
 namespace maze
 {
 	/** {@inheritdoc} */
-	graph::Graph GraphBuilder::build(const std::list<lsystem::Token>& tokens) 
+	MazeGraph GraphBuilder::build(const std::list<lsystem::Token>& tokens)
 	{ 
 		return GraphBuilder::build(tokens.begin(), tokens.end()); 
 	}
 
 	/** {@inheritdoc} */
-	graph::Graph GraphBuilder::build(const std::list<lsystem::Token>::const_iterator begin, const std::list<lsystem::Token>::const_iterator end)
+	MazeGraph GraphBuilder::build(const std::list<lsystem::Token>::const_iterator begin, const std::list<lsystem::Token>::const_iterator end)
 	{
 		// Graph + turtle data structures.
-		auto graph = graph::Graph();
+		auto graph = MazeGraph();
 		auto turtle = maze::MazeTurtle();
 
 		// Lookup map for keeping track of vertex/position connection.
@@ -41,9 +42,20 @@ namespace maze
 			// Current position should always exist, since we could only have gotten there by moving to it in the first place.
 			assert(lookup.count(nState.position) != 0);
 
-			auto vertex = dynamic_cast<PointVertex*>(lookup.find(oState.position)->second);
+			// Set the type of the vertex.
+			auto vertex = lookup.find(oState.position)->second;
 			if(vertex->type == VertexType::DEFAULT) { vertex->type = VertexType::START; }
 			else if(vertex->type == VertexType::END) { vertex->type = VertexType::CONFLICT; }
+
+			// Clear the type of the old start vertex.
+			if(graph.start != 0)
+			{
+				if(graph.start->type == VertexType::START) { graph.start->type = VertexType::DEFAULT; }
+				else if(graph.start->type == VertexType::CONFLICT) { graph.start->type = VertexType::END; }
+			}
+
+			// Set the start vertex.
+			graph.start = vertex;
 
 			return nState;
 		};
@@ -54,9 +66,20 @@ namespace maze
 			// Current position should always exist, since we could only have gotten there by moving to it in the first place.
 			assert(lookup.count(nState.position) != 0);
 
-			auto vertex = dynamic_cast<PointVertex*>(lookup.find(oState.position)->second);
+			// Set the type of the vertex.
+			auto vertex = lookup.find(oState.position)->second;
 			if (vertex->type == VertexType::DEFAULT) { vertex->type = VertexType::END; }
 			else if (vertex->type == VertexType::START) { vertex->type = VertexType::CONFLICT; }
+
+			// Clear the type of the old start vertex.
+			if(graph.end != 0)
+			{
+				if(graph.end->type == VertexType::END) { graph.end->type = VertexType::DEFAULT; }
+				else if(graph.end->type == VertexType::CONFLICT) { graph.end->type = VertexType::START; }
+			}
+
+			// Set the start vertex.
+			graph.end = vertex;
 
 			return nState;
 		};

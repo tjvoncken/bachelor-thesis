@@ -5,10 +5,12 @@
 #include "./lsystem/production/SimpleProduction.h"
 
 #include "./maze/definition/Language.h"
-#include "./maze/representation/graph/VertexType.h"
-#include "./maze/representation/graph/PointVertex.h"
+#include "./maze/representation/graph/helper/VertexType.h"
+#include "./maze/representation/graph/helper/PointVertex.h"
 #include "./maze/representation/graph/GraphBuilder.h"
 #include "./maze/representation/ascii/ASCIIBuilder.h"
+
+#include "./evolution/fitness/shortestPathLength.h"
 
 using Token = lsystem::Token;
 using tList = std::list<lsystem::Token>;
@@ -32,11 +34,11 @@ int main()
 
 	std::cout << "Processing lsystem:" << std::endl;
 
-	tList input = tList({ Token('S'), Token('F'), Token('['), Token('L'), Token('F'), Token('L'), Token('F'), Token('L'), Token('F'), Token(']'), Token('F'), Token('E') });
+	tList input = tList({ Token('S'), Token('F'), Token('E') });
 
 	std::cout << "Input: "; printList(input);
 
-	auto output = engine.rewrite(1, input.begin(), input.end());
+	auto output = engine.rewrite(5, input.begin(), input.end());
 
 	std::cout << "Output: "; printList(output);
 
@@ -68,6 +70,10 @@ int main()
 			std::cout << "<-- " << edge->weight << " --> " << "(" << tVertex->point.x << ", " << tVertex->point.y << ")" << std::endl;
 		}
 	}
+
+	// Print the length of the shortest path to the end.
+	std::cout << "Shortest path to end is of length: " << shortestPathLength(graph) << std::endl;
+
 
 	system("PAUSE");
 

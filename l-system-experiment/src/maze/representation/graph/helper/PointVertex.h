@@ -1,8 +1,8 @@
 #pragma once
 
 #include "./VertexType.h"
-#include "../../../graph/Vertex.h"
-#include "../../../coordinates/grid/Point.h"
+#include "../../../../graph/Vertex.h"
+#include "../../../../coordinates/grid/Point.h"
 
 namespace maze
 {

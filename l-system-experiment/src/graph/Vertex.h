@@ -24,6 +24,6 @@ namespace graph
 
 		public:
 			/** Returns a vector containers pointers to all edges connecting to this vertex. */
-			virtual std::vector<Edge*> getEdges();
+			virtual std::vector<Edge*> getEdges() const;
 	};
 }

@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\coordinates\grid\Vector.h" />
+    <ClInclude Include="src\evolution\fitness\shortestPathLength.h" />
     <ClInclude Include="src\graph\Edge.h" />
     <ClInclude Include="src\graph\Graph.h" />
     <ClInclude Include="src\graph\Vertex.h" />
@@ -123,9 +124,10 @@
     <ClInclude Include="src\maze\representation\graph\GraphBuilder.h" />
     <ClInclude Include="src\maze\definition\Language.h" />
     <ClInclude Include="src\maze\definition\MazeTurtle.h" />
-    <ClInclude Include="src\maze\representation\graph\PointVertex.h" />
+    <ClInclude Include="src\maze\representation\graph\helper\MazeGraph.h" />
+    <ClInclude Include="src\maze\representation\graph\helper\PointVertex.h" />
     <ClInclude Include="src\maze\representation\ascii\ASCIIBuilder.h" />
-    <ClInclude Include="src\maze\representation\graph\VertexType.h" />
+    <ClInclude Include="src\maze\representation\graph\helper\VertexType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\coordinates\grid\Point.cpp" />
@@ -140,7 +142,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maze\representation\graph\GraphBuilder.cpp" />
     <ClCompile Include="src\maze\definition\MazeTurtle.cpp" />
-    <ClCompile Include="src\maze\representation\graph\PointVertex.cpp" />
+    <ClCompile Include="src\maze\representation\graph\helper\PointVertex.cpp" />
     <ClCompile Include="src\maze\representation\ascii\ASCIIBuilder.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

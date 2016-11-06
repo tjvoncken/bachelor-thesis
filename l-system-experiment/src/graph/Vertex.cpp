@@ -8,5 +8,5 @@ namespace graph
 	Vertex::Vertex() : edges() {}
 
 	/** {@inheritdoc} */
-	std::vector<Edge*> Vertex::getEdges() { return this->edges; }
+	std::vector<Edge*> Vertex::getEdges() const { return this->edges; }
 }
