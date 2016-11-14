@@ -3,5 +3,11 @@
 namespace lsystem
 {
 	/** {@inheritdoc} */
-	bool Production::apply(tList& list, tList::iterator _position) { return false; }
+	Production::~Production() {};
+
+	/** {@inheritdoc} */
+	Production* Production::clone() const { return new Production(*this); }
+
+	/** {@inheritdoc} */
+	bool Production::apply(TList& list, TList::iterator _position) { return false; }
 }

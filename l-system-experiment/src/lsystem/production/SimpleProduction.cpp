@@ -3,10 +3,16 @@
 namespace lsystem
 {
 	/** {@inheritdoc} */
+	SimpleProduction::~SimpleProduction() {};
+
+	/** {@inheritdoc} */
+	SimpleProduction* SimpleProduction::clone() const { return new SimpleProduction(*this); }
+
+	/** {@inheritdoc} */
 	SimpleProduction::SimpleProduction(Token _from, std::vector<Token> _to) : from(_from), to(_to) {}
 
 	/** {@inheritdoc} */
-	bool SimpleProduction::apply(tList& list, tList::iterator _position)
+	bool SimpleProduction::apply(TList& list, TList::iterator _position)
 	{
 		if ((*_position) == this->from)
 		{

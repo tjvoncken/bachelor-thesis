@@ -112,12 +112,13 @@
   <ItemGroup>
     <ClInclude Include="src\coordinates\grid\Vector.h" />
     <ClInclude Include="src\evolution\fitness\shortestPathLength.h" />
+    <ClInclude Include="src\evolution\MotherNature.h" />
     <ClInclude Include="src\graph\Edge.h" />
     <ClInclude Include="src\graph\Graph.h" />
     <ClInclude Include="src\graph\Vertex.h" />
     <ClInclude Include="src\lsystem\language\Token.h" />
+    <ClInclude Include="src\lsystem\LSystem.h" />
     <ClInclude Include="src\lsystem\production\Production.h" />
-    <ClInclude Include="src\lsystem\engine\RewriteEngine.h" />
     <ClInclude Include="src\lsystem\production\SimpleProduction.h" />
     <ClInclude Include="src\coordinates\grid\Point.h" />
     <ClInclude Include="src\maze\definition\TurtleState.h" />
@@ -136,9 +137,9 @@
     <ClCompile Include="src\graph\Graph.cpp" />
     <ClCompile Include="src\graph\Vertex.cpp" />
     <ClCompile Include="src\lsystem\language\Token.cpp" />
+    <ClCompile Include="src\lsystem\LSystem.cpp" />
     <ClCompile Include="src\lsystem\production\Production.cpp" />
     <ClCompile Include="src\lsystem\production\SimpleProduction.cpp" />
-    <ClCompile Include="src\lsystem\engine\RewriteEngine.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maze\representation\graph\GraphBuilder.cpp" />
     <ClCompile Include="src\maze\definition\MazeTurtle.cpp" />
