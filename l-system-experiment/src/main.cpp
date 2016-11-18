@@ -1,4 +1,5 @@
 #include <list>
+#include <chrono>
 #include <iostream>
 #include <functional>
 
@@ -50,6 +51,9 @@ void buildInitialPopulation(evolution::MotherNature<lsystem::LSystem>& nature)
 
 int main()
 {
+	// Timer.
+	auto start = std::chrono::system_clock::now();
+
 	// A few constants.
 	const unsigned int GENERATIONS = 1000;
 	const std::list<Token> input = std::list<Token>({ Token('S'), Token('A'), Token('E') });
@@ -65,7 +69,9 @@ int main()
 	{
 		if(i % percentageFactor == 0) 
 		{
-			std::cout << "Progress so far: " << i << " generations." << std::endl;
+			auto pointInTime = std::chrono::system_clock::now();
+			std::chrono::duration<double> diff = pointInTime - start;
+			std::cout << "Progress so far: " << i << " generations. (Running " << diff.count() << "s)" << std::endl;
 		}
 
 		if(i % progressFactor == 0)
@@ -76,7 +82,7 @@ int main()
 			winner->apply(string);
 
 			std::cout << "Top candidate after " << i << " generations:" << std::endl;
-			std::cout << maze::ASCIIBuilder::build(string) << std::endl;
+			//std::cout << maze::ASCIIBuilder::build(string) << std::endl;
 		}
 
 		nature.evolve(20);
@@ -88,8 +94,11 @@ int main()
 	auto string = std::list<Token>(input);
 	winner->apply(string);
 
-	std::cout << "And the winner is:" << std::endl;
-	std::cout << maze::ASCIIBuilder::build(string) << std::endl;
+	auto end = std::chrono::system_clock::now();
+	std::chrono::duration<double> diff = end - start;
+
+	std::cout << "And the winner is (after " << diff.count() << "s):" << std::endl;
+	//std::cout << maze::ASCIIBuilder::build(string) << std::endl;
 
 	std::system("PAUSE"); return 0;
 }
