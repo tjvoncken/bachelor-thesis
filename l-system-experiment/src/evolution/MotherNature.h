@@ -5,6 +5,8 @@
 #include <random>
 #include <functional>
 
+#include "./RandomProvider.h"
+
 namespace evolution
 {
 	/**
@@ -17,8 +19,10 @@ namespace evolution
 		private:
 			using PMem = std::pair<std::unique_ptr<T>, unsigned int>;
 
-			using breedFn = std::function<T* (T*, T*)>;
+			using breedFn = std::function<T* (RandomProvider&, const T*, const T*)>;
 			using fitnessFn = std::function<unsigned int (T*)>;
+
+			RandomProvider quantum;
 
 			// The current population of T.
 			// The fitness of each member is calculated as soon as it enters the population.
@@ -47,7 +51,7 @@ namespace evolution
 
 	/** {@inheritdoc} */
 	template <class T>
-	MotherNature<T>::MotherNature(breedFn _bFn, fitnessFn _fFn) : population(), breedFunction(_bFn), fitnessFunction(_fFn) {}
+	MotherNature<T>::MotherNature(breedFn _bFn, fitnessFn _fFn) : quantum(), population(), breedFunction(_bFn), fitnessFunction(_fFn) {}
 
 	/** {@inheritdoc} */
 	template <class T>
@@ -80,10 +84,6 @@ namespace evolution
 	{
 		if (_base == 0) { return; }
 
-		// -1. Init random number gen.
-		std::random_device rd;
-		auto gen = std::mt19937(rd());
-
 		// 0. Pick with or without replacing? -- Picking with replacing for now because that makes it easier if pop size is odd.
 
 		// 1. Get the size of the current population.
@@ -91,18 +91,18 @@ namespace evolution
 
 		// 2. Get the top N of the current population.
 		auto breedingTop = this->getTop(_base);
-		auto dist = std::uniform_int_distribution<int>(0, breedingTop.size() - 1);
+		auto dist = this->quantum.getRandomDistribution(0, breedingTop.size() - 1);
 
 		// 5. Repeat from 3 until the new population has the size of the old one.
 		auto newPop = std::vector<T*>();
 		while(newPop.size() < popSize)
 		{
 			// 3. Pick 2 with replacing out of the current population.
-			auto m1 = breedingTop.at(dist(gen));
-			auto m2 = breedingTop.at(dist(gen));
+			auto m1 = breedingTop.at(dist());
+			auto m2 = breedingTop.at(dist());
 
 			// 4. Breed the picked 2, insert the new member into the new population.
-			newPop.push_back(this->breedFunction(m1, m2));
+			newPop.push_back(this->breedFunction(this->quantum, m1, m2));
 		}
 
 		// 6. Set the new population over the old one.

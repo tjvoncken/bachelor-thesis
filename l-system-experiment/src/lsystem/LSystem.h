@@ -42,10 +42,10 @@ namespace lsystem
 			void setRecursion(unsigned int);
 
 			/** Returns the recursion parameter for this L-System. */
-			unsigned int getRecursion();
+			unsigned int getRecursion() const;
 
 			/** Returns all productions in this LSystem. */
-			std::vector<Production*> getProductions();
+			std::vector<Production*> getProductions() const;
 
 			/** Adds a production to this LSystem. */
 			void addProduction(Production* const);

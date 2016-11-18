@@ -63,13 +63,19 @@
     <ClInclude Include="src\maze\representation\graph\helper\VertexType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\evolution\fitness\shortestPathLength.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\lsystem\LSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\evolution\MotherNature.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\breed\simpleBreedFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\distanceFitnessFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\RandomProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -114,6 +120,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\lsystem\LSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\breed\simpleBreedFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\distanceFitnessFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\RandomProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

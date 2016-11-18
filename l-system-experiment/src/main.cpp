@@ -12,7 +12,8 @@
 #include "./maze/representation/ascii/ASCIIBuilder.h"
 
 #include "./evolution/MotherNature.h"
-#include "./evolution/fitness/shortestPathLength.h"
+#include "./evolution/breed/simpleBreedFunction.h"
+#include "./evolution/fitness/distanceFitnessFunction.h"
 
 using Token = lsystem::Token;
 using TList = std::list<lsystem::Token>;
@@ -25,20 +26,26 @@ void printList(const TList& output)
 
 void buildInitialPopulation(evolution::MotherNature<lsystem::LSystem>& nature)
 {
-	//TODO: build the initial population.
+	// Create pop vector.
+	auto pop = std::vector<lsystem::LSystem*>();
 
-	// Init dummy L-System.
-	auto system = new lsystem::LSystem();
-	system->setRecursion(6);
+	for(unsigned int i = 0; i < 100; i++)
+	{
+		// Init very simple L-System.
+		auto system = new lsystem::LSystem();
+		system->setRecursion(1);
 
-	auto p1 = new lsystem::SimpleProduction(Token('A'), std::vector<Token>({ Token('F') }));
-	system->addProduction(p1);
-	auto p2 = new lsystem::SimpleProduction(Token('F'), std::vector<Token>({ Token('F'), Token('F'), Token('R') }));
-	system->addProduction(p2);
-	auto p3 = new lsystem::SimpleProduction(Token('R'), std::vector<Token>({ Token('['), Token('F'), Token('F'), Token(']'), Token('R') }));
-	system->addProduction(p3);
+		auto p1 = new lsystem::SimpleProduction(Token('A'), std::vector<Token>({ Token('F') }));
+		system->addProduction(p1);
 
-	nature.setPopulation(std::vector<lsystem::LSystem*>({ system }));
+		auto p2 = new lsystem::SimpleProduction(Token('F'), std::vector<Token>({ Token('F'), Token('F') }));
+		system->addProduction(p2);
+
+		pop.push_back(system);
+	}
+
+	// Set population into the world.
+	nature.setPopulation(pop);
 }
 
 int main()
@@ -48,16 +55,31 @@ int main()
 	const std::list<Token> input = std::list<Token>({ Token('S'), Token('A'), Token('E') });
 
 	// Init the world.
-	auto breed = std::function<lsystem::LSystem* (lsystem::LSystem*, lsystem::LSystem*)>([](lsystem::LSystem* _a, lsystem::LSystem* _b) { return new lsystem::LSystem(*_a); });
-	auto fitness = std::function<unsigned int (lsystem::LSystem*)>([](lsystem::LSystem* _s) { return 1; });
-
-	auto nature = evolution::MotherNature<lsystem::LSystem>(breed, fitness);
+	evolution::MotherNature<lsystem::LSystem> nature(evolution::simpleBreedFunction, evolution::distanceFitnessFunction(input));
 	buildInitialPopulation(nature);
 
 	// Run for about 1000 generations, picking the top 100 at each generation.
+	auto percentageFactor = (int) (round(GENERATIONS / 100));
+	auto progressFactor = (int) (round(GENERATIONS / 100));
 	for(unsigned int i = 0; i < GENERATIONS; i++)
 	{
-		nature.evolve(100);
+		if(i % percentageFactor == 0) 
+		{
+			std::cout << "Progress so far: " << i << " generations." << std::endl;
+		}
+
+		if(i % progressFactor == 0)
+		{
+			auto winner = nature.getTop().front();
+
+			auto string = std::list<Token>(input);
+			winner->apply(string);
+
+			std::cout << "Top candidate after " << i << " generations:" << std::endl;
+			std::cout << maze::ASCIIBuilder::build(string) << std::endl;
+		}
+
+		nature.evolve(20);
 	}
 
 	// Output the top candidate.

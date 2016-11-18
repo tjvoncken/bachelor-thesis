@@ -25,7 +25,7 @@ namespace lsystem
 	/** {@inheritdoc} */
 	void LSystem::apply(TList& _string)
 	{
-		for(auto i = 0; i < this->recursion; i++)
+		for(unsigned int i = 0; i < this->recursion; i++)
 		{
 			auto it = _string.begin();
 			while (it != _string.end())
@@ -46,10 +46,10 @@ namespace lsystem
 	void LSystem::setRecursion(unsigned int _recursion) { this->recursion = _recursion; }
 
 	/** {@inheritdoc} */
-	unsigned int LSystem::getRecursion() { return this->recursion; }
+	unsigned int LSystem::getRecursion() const { return this->recursion; }
 
 	/** {@inheritdoc} */
-	std::vector<Production*> LSystem::getProductions() 
+	std::vector<Production*> LSystem::getProductions() const
 	{ 
 		auto out = std::vector<Production*>();
 		for(auto it = this->productions.begin(); it != this->productions.end(); it++) { out.push_back(it->get()); }
