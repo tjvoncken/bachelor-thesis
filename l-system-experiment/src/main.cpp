@@ -82,7 +82,7 @@ int main()
 			winner->apply(string);
 
 			std::cout << "Top candidate after " << i << " generations:" << std::endl;
-			//std::cout << maze::ASCIIBuilder::build(string) << std::endl;
+			std::cout << maze::ASCIIBuilder::build(string) << std::endl;
 		}
 
 		nature.evolve(20);
@@ -98,7 +98,7 @@ int main()
 	std::chrono::duration<double> diff = end - start;
 
 	std::cout << "And the winner is (after " << diff.count() << "s):" << std::endl;
-	//std::cout << maze::ASCIIBuilder::build(string) << std::endl;
+	std::cout << maze::ASCIIBuilder::build(string) << std::endl;
 
 	std::system("PAUSE"); return 0;
 }
