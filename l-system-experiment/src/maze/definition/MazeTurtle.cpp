@@ -29,7 +29,7 @@ namespace maze
 			lsystem::Token(Language::T_POP), 
 			[&](const lsystem::Token&, const TurtleState& oState, const TurtleState& nState)
 			{ 
-				if (this->stack.size() <= 0) { throw std::runtime_error("Cannot POP if there has not been a PUSH."); }
+				if (this->stack.size() <= 0) { return nState; /* throw std::runtime_error("Cannot POP if there has not been a PUSH."); */ }
 				else
 				{
 					auto nState = this->stack.back();
@@ -61,7 +61,7 @@ namespace maze
 		{
 			auto oState = this->state;
 
-			auto fns = this->tokenFns[token];
+			auto fns = this->tokenFns.find(token)->second;
 			for(auto fn : fns) { this->state = fn(token, oState, this->state); }
 		}
 	}

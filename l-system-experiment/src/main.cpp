@@ -85,7 +85,7 @@ int main()
 			std::cout << maze::ASCIIBuilder::build(string) << std::endl;
 		}
 
-		nature.evolve(20);
+		nature.evolve(10);
 	}
 
 	// Output the top candidate.
@@ -102,64 +102,3 @@ int main()
 
 	std::system("PAUSE"); return 0;
 }
-
-/*
-// ORIGINAL SIMPEL MAIN FUNCTION BELOW!
-auto system = lsystem::LSystem();
-
-// Process L-System.
-auto p1 = new lsystem::SimpleProduction(Token('F'), std::vector<Token>({ Token('F'), Token('F'), Token('R') }));
-system.addProduction(p1);
-
-auto p3 = new lsystem::SimpleProduction(Token('R'), std::vector<Token>({ Token('['), Token('F'), Token('F'), Token(']'), Token('R') }));
-system.addProduction(p3);
-
-system.setRecursion(5);
-
-std::cout << "Processing lsystem:" << std::endl;
-
-TList string = TList({ Token('S'), Token('F'), Token('E') });
-
-std::cout << "Input: "; printList(string);
-
-system.apply(string);
-
-std::cout << "Output: "; printList(string);
-
-std::cout << std::endl;
-	
-// Print maze structure.
-std::cout << "Printing maze as ASCII:" << std::endl;
-std::cout << maze::ASCIIBuilder::build(string) << std::endl;
-
-// Convert maze to graph.
-//std::cout << "Translating maze to graph:" << std::endl;
-auto graph = maze::GraphBuilder::build(string);
-
-// Print the graph information.
-for(graph::Vertex* vertex : graph.getVertices())
-{
-	auto pVertex = dynamic_cast<maze::PointVertex*>(vertex);
-	if(pVertex->type == maze::VertexType::START) { std::cout << "(S) "; }
-	else if(pVertex->type == maze::VertexType::END) { std::cout << "(E) "; }
-	else if (pVertex->type == maze::VertexType::CONFLICT) { std::cout << "(???) "; }
-
-	std::cout << "(" << pVertex->point.x << ", " << pVertex->point.y << "):" << std::endl;
-
-	for(graph::Edge* edge : vertex->getEdges())
-	{
-		auto tVertex = dynamic_cast<maze::PointVertex*>(edge->b);
-		if (tVertex == pVertex) { tVertex = dynamic_cast<maze::PointVertex*>(edge->a); }
-
-		std::cout << "<-- " << edge->weight << " --> " << "(" << tVertex->point.x << ", " << tVertex->point.y << ")" << std::endl;
-	}
-}
-
-// Print the length of the shortest path to the end.
-std::cout << "Shortest path to end is of length: " << shortestPathLength(graph) << std::endl;
-
-
-std::system("PAUSE");
-
-return 0;
-*/

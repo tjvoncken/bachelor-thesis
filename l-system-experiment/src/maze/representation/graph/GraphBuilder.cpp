@@ -119,6 +119,9 @@ namespace maze
 			{
 				auto pVertex = dynamic_cast<maze::PointVertex*>(vertex);
 
+				// Always skip start, end, and conflicted vertices.
+				if(pVertex->type == VertexType::START || pVertex->type == VertexType::END || pVertex->type == VertexType::CONFLICT) { continue; }
+
 				auto edges = vertex->getEdges();
 				if(edges.size() == 2)
 				{
@@ -130,9 +133,15 @@ namespace maze
 					auto aVertex = dynamic_cast<maze::PointVertex*>(aEdge->a);
 					if(aEdge->a == pVertex) { aVertex = dynamic_cast<maze::PointVertex*>(aEdge->b); }
 
+					// Abort if the aEdge is a loop.
+					if(aVertex == pVertex) { continue; }
+
 					// Find second vertex.
 					auto bVertex = dynamic_cast<maze::PointVertex*>(bEdge->a);
 					if (bEdge->a == pVertex) { bVertex = dynamic_cast<maze::PointVertex*>(bEdge->b); }
+
+					// Abort if the bEdge is a loop.
+					if(bVertex == pVertex) { continue; }
 
 					// Construct movement vectors for paths between vertices.
 					auto aVec = coordinates::grid::Vector(aVertex->point, pVertex->point);

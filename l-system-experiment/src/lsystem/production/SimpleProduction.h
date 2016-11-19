@@ -21,6 +21,12 @@ namespace lsystem
 			virtual ~SimpleProduction();
 			virtual SimpleProduction* clone() const;
 
+			/** Returns the token from which the production operates. */
+			Token getFrom() const;
+
+			/** Returns the tokens into which this production transforms. */
+			std::vector<Token> getTo() const;
+
 			/** Constructor for this type of production. */
 			SimpleProduction(Token from, std::vector<Token> to);
 

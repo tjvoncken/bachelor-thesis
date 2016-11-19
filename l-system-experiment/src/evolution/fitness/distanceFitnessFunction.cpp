@@ -30,7 +30,8 @@ namespace evolution
 			system->apply(string);
 
 			auto graph = maze::GraphBuilder::build(string);
-			return shortestPathLength(graph);
+			// Ideal path length set to 7.
+			return 20000 - abs((7 - shortestPathLength(graph)));
 		};
 	}
 
@@ -39,7 +40,7 @@ namespace evolution
 	{
 		auto path = dijkstra(g, g.start, g.end);
 
-		int length = 0;
+		unsigned int length = 0;
 		for (auto e : path) { length += e->weight; }
 
 		return length;
