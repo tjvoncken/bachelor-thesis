@@ -51,19 +51,18 @@ namespace evolution
 		// Loop through all productions from system _b.
 		mapSimpleProductions(_random, simpleProductions, _target, _b);
 
-		auto newTokens = std::set<lsystem::Token>();
-
 		// Mutate the relevant productions.
 		// TODO: try possible optimization by not creating a production for every token, but creating them randomly. 
 		// TODO: (this should reduce the impact of garbage tokens by a large margin, and also open the system up for more mutation (better against local minima).)
-		for(auto it = simpleProductions.begin(); it != simpleProductions.end(); it++)
+		auto die = _random.getRandomDistribution(1, 100);
+		auto it = simpleProductions.begin();
+		while(it != simpleProductions.end())
 		{
 			// Roll a die.
-			auto die = _random.getRandomDistribution(1, 20);
 			auto actionRoll = die();
 
-			// Mutate if the roll is >18.
-			if(actionRoll < 18)
+			// 60% chance of not mutating at all.
+			if(actionRoll <= 60)
 			{
 				// Do nothing in most cases, except duplicating the production.
 				it->second = it->second->clone();
@@ -74,15 +73,14 @@ namespace evolution
 				// If a previously unknown token was added, add an identity production for that token to the system.
 				auto production = it->second;
 				auto to = production->getTo();
-				auto from = production->getFrom();
+				auto from = production->getFrom();	
 
-				auto die = _random.getRandomDistribution(0, to.size() - 1);
-
-				if(actionRoll == 18)
+				if(actionRoll > 60 && actionRoll <= 75)
 				{
 					if (to.size() > 1)
 					{
 						// Remove a token if there are more than 1.
+						auto die = _random.getRandomDistribution(0, to.size() - 1);
 						to.erase(to.begin() + die());
 
 						// Re-insert new production.
@@ -94,7 +92,7 @@ namespace evolution
 						it->second = it->second->clone();
 					}
 				}
-				else if(actionRoll == 19)
+				else if(actionRoll > 75 && actionRoll <= 90)
 				{
 					// Add a token.
 
@@ -106,15 +104,13 @@ namespace evolution
 
 					auto cToken = lsystem::Token(c);
 
+					auto die = _random.getRandomDistribution(0, to.size() - 1);
 					to.insert(to.begin() + die(), cToken);
 
 					// Re-insert new production(s)...
 					it->second = new lsystem::SimpleProduction(production->getFrom(), to);
-
-					// Insert token into set of new tokens.
-					newTokens.insert(cToken);
 				}
-				else if(actionRoll == 20)
+				else if(actionRoll > 90 && actionRoll <= 98)
 				{
 					// Convert the current production into a branch.
 					to.insert(to.begin(), lsystem::Token('['));
@@ -123,13 +119,32 @@ namespace evolution
 					// Re-insert new production.
 					it->second = new lsystem::SimpleProduction(production->getFrom(), to);
 				}
-			}			
+				else if(actionRoll > 98)
+				{
+					// Remove the production entirely.
+					it = simpleProductions.erase(it);
+				}
+			}	
+
+			// Increment pointer if we didn't delete the current one.
+			if (actionRoll <= 98) { it++; }
 		}
 
-		// Insert an identity production for all new tokens, so they can mutate next round.
-		for(auto it = newTokens.begin(); it != newTokens.end(); it++)
+		// 30% chance to spawn a random production from a random Token to 'F'.
+		// If the chose production already exists, do nothing.
+		auto bonusRoll = die();
+		if (bonusRoll > 70)
 		{
-			simpleProductions.insert(ProductionMap::value_type(*it, new lsystem::SimpleProduction(*it, std::vector<lsystem::Token>({ lsystem::Token('F') }))));
+			// Make sure not to generate productions transforming the 'S' or 'E' token.
+			auto alphabet = _random.getRandomDistribution(65, 78); //A-Z = 65-90
+			char c = alphabet();
+			while (c == 'S' || c == 'E') { c = alphabet(); }
+
+			auto token = lsystem::Token(c);
+
+			auto p = new lsystem::SimpleProduction(token, std::vector<lsystem::Token>({ lsystem::Token('F') }));
+			auto r = simpleProductions.insert(ProductionMap::value_type(token, p));
+			if (r.second == false) { delete p; }
 		}
 
 		// Insert production into _target.

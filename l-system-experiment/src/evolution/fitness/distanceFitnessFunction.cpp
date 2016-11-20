@@ -129,7 +129,7 @@ namespace evolution
 			auto e = lookup[v].second;
 
 			// If e is 0, we haven't visited v yet, which should not be possible if we terminated and there is a path.
-			assert(e != 0);
+			assert(e != NULL);
 
 			// Add edge to path.
 			out.push_back(e);
