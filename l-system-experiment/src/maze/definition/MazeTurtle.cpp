@@ -57,12 +57,11 @@ namespace maze
 	/** {@inheritdoc} */
 	void MazeTurtle::execute(const lsystem::Token& token)
 	{
-		if(this->tokenFns.count(token) > 0)
+		auto fns = this->tokenFns.find(token);
+		if(fns != this->tokenFns.end())
 		{
 			auto oState = this->state;
-
-			auto fns = this->tokenFns.find(token)->second;
-			for(auto fn : fns) { this->state = fn(token, oState, this->state); }
+			for(auto fn : fns->second) { this->state = fn(token, oState, this->state); }
 		}
 	}
 }

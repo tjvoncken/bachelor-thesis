@@ -28,15 +28,19 @@ namespace lsystem
 		for(unsigned int i = 0; i < this->recursion; i++)
 		{
 			auto it = _string.begin();
-			while (it != _string.end())
+			while(it != _string.end())
 			{
 				bool productionApplied = false;
 				for (auto pIt = this->productions.begin(); pIt != this->productions.end(); pIt++)
 				{
-					productionApplied = productionApplied || (*pIt)->apply(_string, it);
+					if((*pIt)->apply(_string, it)) 
+					{ 
+						productionApplied = true;
+						break; 
+					}
 				}
 
-				if (productionApplied) { it = _string.erase(it); }
+				if(productionApplied) { it = _string.erase(it); }
 				else { it++; }
 			}
 		}
