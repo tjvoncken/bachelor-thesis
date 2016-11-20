@@ -57,11 +57,12 @@ namespace graph
 				T* edge = new T(std::forward<Args>(args)...);
 
 				// Check if to and from vertices of newly created edge are on graph, throw an error otherwise and remove the edge again.
-				auto toIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->a; });
-				if(toIt == this->vertices.end()) { delete edge; throw std::runtime_error("'a' vertex not in graph."); }
+				// TODO: check is disable, because it costs a lot of performance. Adding edges from unknown vertex to unknown vertex is undefined behaviour.
+				//auto toIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->a; });
+				//if(toIt == this->vertices.end()) { delete edge; throw std::runtime_error("'a' vertex not in graph."); }
 
-				auto fromIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->b; });
-				if(fromIt == this->vertices.end()) { delete edge; throw std::runtime_error("'b' vertex not in graph."); }
+				//auto fromIt = std::find_if(this->vertices.begin(), this->vertices.end(), [&](std::unique_ptr<Vertex> const& ptr) { return ptr.get() == edge->b; });
+				//if(fromIt == this->vertices.end()) { delete edge; throw std::runtime_error("'b' vertex not in graph."); }
 
 				// Add the edge to the relevant vertices.
 				edge->a->edges.push_back(edge);

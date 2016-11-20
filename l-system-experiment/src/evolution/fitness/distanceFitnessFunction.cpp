@@ -24,7 +24,7 @@ namespace evolution
 	/** {@inheritdoc} */
 	std::function<unsigned int (lsystem::LSystem*)> distanceFitnessFunction(const std::list<lsystem::Token>& input)
 	{
-		return [&](lsystem::LSystem* system)
+		return [&](lsystem::LSystem* system) -> unsigned int
 		{
 			auto string = std::list <lsystem::Token>(input);
 			system->apply(string);
@@ -35,7 +35,14 @@ namespace evolution
 			if(graph.dimX > 40 || graph.dimY > 12) { return 0; }
 
 			// Return shortest path length.
-			return shortestPathLength(graph);
+			unsigned int pathLength = shortestPathLength(graph);
+
+			// Punish needless complexity, this should help performance a lot.
+			unsigned int pathScore = pathLength * pathLength;
+			unsigned int complexity = 2 * system->getRecursion() + system->getProductions().size();
+
+			if(pathScore < complexity) { return 0; }
+			else { return pathScore - complexity; }
 		};
 	}
 

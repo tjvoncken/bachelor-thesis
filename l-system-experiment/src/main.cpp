@@ -81,7 +81,8 @@ int main()
 			auto string = std::list<Token>(input);
 			winner->apply(string);
 
-			std::cout << "Top candidate after " << i << " generations:" << std::endl;
+			unsigned int fitness = evolution::distanceFitnessFunction(input)(winner);
+			std::cout << "Top candidate after " << i << " generations with score " << fitness << ":" << std::endl;
 			std::cout << maze::ASCIIBuilder::build(string) << std::endl;
 		}
 

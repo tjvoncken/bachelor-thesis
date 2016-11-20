@@ -75,7 +75,7 @@ namespace evolution
 				auto to = production->getTo();
 				auto from = production->getFrom();	
 
-				if(actionRoll > 60 && actionRoll <= 75)
+				if(actionRoll > 60 && actionRoll <= 74)
 				{
 					if (to.size() > 1)
 					{
@@ -92,7 +92,7 @@ namespace evolution
 						it->second = it->second->clone();
 					}
 				}
-				else if(actionRoll > 75 && actionRoll <= 90)
+				else if(actionRoll > 74 && actionRoll <= 88)
 				{
 					// Add a token.
 
@@ -110,7 +110,7 @@ namespace evolution
 					// Re-insert new production(s)...
 					it->second = new lsystem::SimpleProduction(production->getFrom(), to);
 				}
-				else if(actionRoll > 90 && actionRoll <= 98)
+				else if(actionRoll > 88 && actionRoll <= 96)
 				{
 					// Convert the current production into a branch.
 					to.insert(to.begin(), lsystem::Token('['));
@@ -119,7 +119,7 @@ namespace evolution
 					// Re-insert new production.
 					it->second = new lsystem::SimpleProduction(production->getFrom(), to);
 				}
-				else if(actionRoll > 98)
+				else if(actionRoll > 96)
 				{
 					// Remove the production entirely.
 					it = simpleProductions.erase(it);
@@ -127,7 +127,7 @@ namespace evolution
 			}	
 
 			// Increment pointer if we didn't delete the current one.
-			if (actionRoll <= 98) { it++; }
+			if (actionRoll <= 96) { it++; }
 		}
 
 		// 30% chance to spawn a random production from a random Token to 'F'.
