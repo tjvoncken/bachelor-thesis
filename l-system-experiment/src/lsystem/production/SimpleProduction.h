@@ -11,18 +11,12 @@ namespace lsystem
 	class SimpleProduction : public Production
 	{
 		private:
-			/** The token this production originates from. */
-			Token from;
-
 			/** The token(s) this production generates. */
 			std::vector<Token> to;
 
 		public:
 			virtual ~SimpleProduction();
 			virtual SimpleProduction* clone() const;
-
-			/** Returns the token from which the production operates. */
-			Token getFrom() const;
 
 			/** Returns the tokens into which this production transforms. */
 			std::vector<Token> getTo() const;

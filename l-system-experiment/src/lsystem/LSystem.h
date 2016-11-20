@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include <list>
 #include <memory>
 #include <vector>
@@ -16,11 +17,11 @@ namespace lsystem
 	class LSystem
 	{
 		private:
-			using PVec = std::vector<std::unique_ptr<Production>>;
+			using PMap = std::map<lsystem::Token, std::unique_ptr<Production>>;
 			using TList = std::list<Token>;
 
 			// The set of productions that identify this L-System.
-			PVec productions = PVec();
+			PMap productions = PMap();
 			
 			// The recursion parameter for this L-System.
 			unsigned int recursion = 0;

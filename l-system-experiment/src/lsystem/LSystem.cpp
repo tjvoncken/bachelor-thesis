@@ -15,10 +15,11 @@ namespace lsystem
 		this->recursion = _original.recursion;
 
 		// Copy all production from the previous L-System.
-		this->productions = PVec();
+		this->productions = PMap();
 		for(auto it = _original.productions.begin(); it != _original.productions.end(); it++)
 		{
-			this->productions.push_back(std::unique_ptr<Production>(it->get()->clone()));
+			auto prod = it->second.get()->clone();
+			this->productions.insert(PMap::value_type(prod->getFrom(), std::unique_ptr<Production>(prod)));
 		}
 	}
 
@@ -30,18 +31,16 @@ namespace lsystem
 			auto it = _string.begin();
 			while(it != _string.end())
 			{
-				bool productionApplied = false;
-				for (auto pIt = this->productions.begin(); pIt != this->productions.end(); pIt++)
+				auto pIt = this->productions.find(*it);
+				if(pIt != this->productions.end())
 				{
-					if((*pIt)->apply(_string, it)) 
-					{ 
-						productionApplied = true;
-						break; 
-					}
+					pIt->second->apply(_string, it);
+					it = _string.erase(it);
 				}
-
-				if(productionApplied) { it = _string.erase(it); }
-				else { it++; }
+				else
+				{
+					it++;
+				}
 			}
 		}
 	}
@@ -56,13 +55,21 @@ namespace lsystem
 	std::vector<Production*> LSystem::getProductions() const
 	{ 
 		auto out = std::vector<Production*>();
-		for(auto it = this->productions.begin(); it != this->productions.end(); it++) { out.push_back(it->get()); }
+		for(auto it = this->productions.begin(); it != this->productions.end(); it++) { out.push_back(it->second.get()); }
 		return out;
 	}
 
 	/** {@inheritdoc} */
 	void LSystem::addProduction(Production* const _p)
 	{
-		this->productions.push_back(std::unique_ptr<Production>(_p));
+		auto pIt = this->productions.find(_p->getFrom());
+		if(pIt == this->productions.end())
+		{
+			this->productions.insert(PMap::value_type(_p->getFrom(), std::unique_ptr<Production>(_p)));
+		}
+		else
+		{
+			pIt->second = std::unique_ptr<Production>(_p);
+		}
 	}
 }
