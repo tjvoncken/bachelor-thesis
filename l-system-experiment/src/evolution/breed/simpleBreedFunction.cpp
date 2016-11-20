@@ -54,14 +54,16 @@ namespace evolution
 		auto newTokens = std::set<lsystem::Token>();
 
 		// Mutate the relevant productions.
+		// TODO: try possible optimization by not creating a production for every token, but creating them randomly. 
+		// TODO: (this should reduce the impact of garbage tokens by a large margin, and also open the system up for more mutation (better against local minima).)
 		for(auto it = simpleProductions.begin(); it != simpleProductions.end(); it++)
 		{
 			// Roll a die.
 			auto die = _random.getRandomDistribution(1, 20);
-			auto roll = die();
+			auto actionRoll = die();
 
 			// Mutate if the roll is >18.
-			if(roll < 18)
+			if(actionRoll < 18)
 			{
 				// Do nothing in most cases, except duplicating the production.
 				it->second = it->second->clone();
@@ -76,7 +78,7 @@ namespace evolution
 
 				auto die = _random.getRandomDistribution(0, to.size() - 1);
 
-				if(roll == 18) 
+				if(actionRoll == 18)
 				{
 					if (to.size() > 1)
 					{
@@ -92,13 +94,13 @@ namespace evolution
 						it->second = it->second->clone();
 					}
 				}
-				else if(roll == 19)
+				else if(actionRoll == 19)
 				{
 					// Add a token.
 
 					// Generate random char from A to Z and insert it randomly into the "to" token list.
 					// But make sure to not generate an S or an E, and leave those tokens alone.
-					auto alphabet = _random.getRandomDistribution(65, 90);
+					auto alphabet = _random.getRandomDistribution(65, 78); //A-Z = 65-90
 					char c = alphabet();
 					while(c == 'S' || c == 'E') { c = alphabet(); }
 
@@ -112,7 +114,7 @@ namespace evolution
 					// Insert token into set of new tokens.
 					newTokens.insert(cToken);
 				}
-				else if(roll == 20)
+				else if(actionRoll == 20)
 				{
 					// Convert the current production into a branch.
 					to.insert(to.begin(), lsystem::Token('['));
@@ -127,7 +129,7 @@ namespace evolution
 		// Insert an identity production for all new tokens, so they can mutate next round.
 		for(auto it = newTokens.begin(); it != newTokens.end(); it++)
 		{
-			simpleProductions.insert(ProductionMap::value_type(*it, new lsystem::SimpleProduction(*it, std::vector<lsystem::Token>({ *it }))));
+			simpleProductions.insert(ProductionMap::value_type(*it, new lsystem::SimpleProduction(*it, std::vector<lsystem::Token>({ lsystem::Token('F') }))));
 		}
 
 		// Insert production into _target.

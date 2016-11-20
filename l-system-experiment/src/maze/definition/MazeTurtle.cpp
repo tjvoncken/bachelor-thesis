@@ -61,7 +61,10 @@ namespace maze
 		if(fns != this->tokenFns.end())
 		{
 			auto oState = this->state;
-			for(auto fn : fns->second) { this->state = fn(token, oState, this->state); }
+			for(auto it = fns->second.begin(); it != fns->second.end(); it++) 
+			{ 
+				this->state = (*it)(token, oState, this->state); 
+			}
 		}
 	}
 }
