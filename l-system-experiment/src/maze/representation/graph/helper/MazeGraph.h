@@ -13,6 +13,9 @@ namespace maze
 			PointVertex* start = 0;
 			PointVertex* end = 0;
 
+			unsigned int dimX = 0;
+			unsigned int dimY = 0;
+
 		public:
 			/** {@inheritdoc} */
 			std::vector<PointVertex*> getVertices() const

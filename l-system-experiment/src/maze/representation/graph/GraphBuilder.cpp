@@ -29,6 +29,12 @@ namespace maze
 		auto graph = MazeGraph();
 		auto turtle = maze::MazeTurtle();
 
+		// Dimension tracking structures.
+		int minX = 0;
+		int maxX = 0;
+		int minY = 0;
+		int maxY = 0;
+
 		// Lookup map for keeping track of vertex/position connection.
 		using VertexMap = std::map<coordinates::grid::Point, maze::PointVertex*>;
 		auto lookup = VertexMap();
@@ -103,6 +109,12 @@ namespace maze
 			// Link the vertices.
 			graph.createEdge<graph::Edge>(oVertex, nVertex, 1);
 
+			// Update the dimensions according to the new positions.
+			if(nState.position.x < minX) { minX = nState.position.x; }
+			if(nState.position.x > maxX) { maxX = nState.position.x; }
+			if(nState.position.y < minY) { minY = nState.position.y; }
+			if(nState.position.y > maxY) { maxY = nState.position.y; }
+
 			return nState;
 		};
 		turtle.registerTokenFn(lsystem::Token(Language::T_FORWARD), mvFunc);
@@ -158,6 +170,10 @@ namespace maze
 			}
 		} 
 		while (changes);
+
+		// Set graph dimensions accoording to minX/maxX and minY/maxY.
+		graph.dimX = std::abs(maxX - minX);
+		graph.dimY = std::abs(maxY - minY);
 
 		return std::move(graph);
 	}

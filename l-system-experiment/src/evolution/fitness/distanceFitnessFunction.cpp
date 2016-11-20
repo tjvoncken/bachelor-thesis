@@ -30,8 +30,12 @@ namespace evolution
 			system->apply(string);
 
 			auto graph = maze::GraphBuilder::build(string);
-			// Ideal path length set to 7.
-			return 20000 - abs((7 - shortestPathLength(graph)));
+
+			// Punish hard for overstepping boundaries.
+			if(graph.dimX > 40 || graph.dimY > 12) { return 0; }
+
+			// Return shortest path length.
+			return shortestPathLength(graph);
 		};
 	}
 
