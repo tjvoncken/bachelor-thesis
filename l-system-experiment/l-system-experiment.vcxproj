@@ -113,6 +113,7 @@
     <ClInclude Include="src\coordinates\grid\Vector.h" />
     <ClInclude Include="src\evolution\fitness\distanceFitnessFunction.h" />
     <ClInclude Include="src\evolution\breed\simpleBreedFunction.h" />
+    <ClInclude Include="src\evolution\fitness\totalDistanceFitness.h" />
     <ClInclude Include="src\evolution\MotherNature.h" />
     <ClInclude Include="src\evolution\RandomProvider.h" />
     <ClInclude Include="src\graph\Edge.h" />
@@ -137,6 +138,7 @@
     <ClCompile Include="src\coordinates\grid\Vector.cpp" />
     <ClCompile Include="src\evolution\breed\simpleBreedFunction.cpp" />
     <ClCompile Include="src\evolution\fitness\distanceFitnessFunction.cpp" />
+    <ClCompile Include="src\evolution\fitness\totalDistanceFitness.cpp" />
     <ClCompile Include="src\evolution\RandomProvider.cpp" />
     <ClCompile Include="src\graph\Edge.cpp" />
     <ClCompile Include="src\graph\Graph.cpp" />

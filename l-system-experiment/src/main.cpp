@@ -15,6 +15,7 @@
 #include "./evolution/MotherNature.h"
 #include "./evolution/breed/simpleBreedFunction.h"
 #include "./evolution/fitness/distanceFitnessFunction.h"
+#include "./evolution/fitness/totalDistanceFitness.h"
 
 using Token = lsystem::Token;
 using TList = std::list<lsystem::Token>;
@@ -59,7 +60,8 @@ int main()
 	const std::list<Token> input = std::list<Token>({ Token('S'), Token('A'), Token('E') });
 
 	// Init the world.
-	evolution::MotherNature<lsystem::LSystem> nature(evolution::simpleBreedFunction, evolution::distanceFitnessFunction(input));
+	//evolution::MotherNature<lsystem::LSystem> nature(evolution::simpleBreedFunction, evolution::distanceFitnessFunction(input));
+	evolution::MotherNature<lsystem::LSystem> nature(evolution::simpleBreedFunction, evolution::totalDistanceFitnessFunction(input));
 	buildInitialPopulation(nature);
 
 	// Run for about 1000 generations, picking the top 100 at each generation.
