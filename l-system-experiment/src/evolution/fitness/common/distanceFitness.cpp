@@ -33,10 +33,11 @@ namespace evolution
 		unsigned int pathLength = shortestPathLength(graph);
 
 		// Punish needless complexity, this should help performance a lot.
-		unsigned int pathScore = pathLength * pathLength;
+		unsigned int pathScore = 8 * pathLength;
+		unsigned int complexity = _complexity + _tokens.size();
 
-		if(pathScore <= _complexity) { return 0; }
-		else { return pathScore - _complexity; }
+		if(pathScore <= complexity) { return 0; }
+		else { return pathScore - complexity; }
 	}
 
 	/** {@inheritdoc} */
@@ -53,6 +54,9 @@ namespace evolution
 	/** {@inheritdoc} */
 	std::list<const graph::Edge*> dijkstra(const graph::Graph& g, const graph::Vertex* from, const graph::Vertex* to)
 	{
+		// Easy-out for an edge case.
+		if(from == to) { return std::list<const graph::Edge*>(); }
+
 		// Set-up default environment. Processing queue, visited list and distance lookup table.
 		auto visited = std::vector<const graph::Vertex*>();
 		auto processing = std::vector<const graph::Vertex*>({ from });
@@ -61,7 +65,7 @@ namespace evolution
 
 		// Init lookup.
 		auto vertices = g.getVertices();
-		for (auto vertex : vertices) { lookup[vertex] = std::pair<int, const graph::Edge*>(0, 0); }
+		for (auto vertex : vertices) { lookup[vertex] = std::pair<int, const graph::Edge*>(0, NULL); }
 
 		// Actual algorithm.
 		while (processing.size() > 0)

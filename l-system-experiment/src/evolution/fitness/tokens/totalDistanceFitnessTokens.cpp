@@ -24,6 +24,6 @@ namespace evolution
 		string.insert(string.begin(), lsystem::Token('S'));
 		string.insert(string.end(), lsystem::Token('E'));
 
-		return totalDistanceFitness(string, 2 * _tokens->size());
+		return totalDistanceFitness(string, 0);
 	}
 }

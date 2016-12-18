@@ -10,6 +10,8 @@
 #include "../../../graph/Graph.h"
 #include "../../../graph/Vertex.h"
 
+#include "../../../lsystem/production/SimpleProduction.h"
+
 #include "../../../maze/representation/graph/GraphBuilder.h"
 #include "../../../maze/representation/graph/helper/MazeGraph.h"
 
@@ -25,7 +27,15 @@ namespace evolution
 			auto string = std::list <lsystem::Token>(input);
 			system->apply(string);
 
-			return distanceFitness(string, system->getRecursion() + system->getProductions().size());
+			auto productions = system->getProductions();
+			auto maxLength = 0;
+			for(auto production : productions)
+			{
+				auto simple = dynamic_cast<lsystem::SimpleProduction*>(production);
+				if(simple->getTo().size() > maxLength) { maxLength = simple->getTo().size(); }
+			}
+
+			return distanceFitness(string, system->getRecursion() + maxLength);
 		};
 	}
 }

@@ -26,7 +26,7 @@
 using Token = lsystem::Token;
 using TList = std::list<lsystem::Token>;
 
-const unsigned int GENERATIONS = 1000;
+const unsigned int GENERATIONS = 10000;
 
 void printList(const TList& output)
 {
@@ -62,7 +62,7 @@ void runTokens()
 		{
 			auto pointInTime = std::chrono::system_clock::now();
 			std::chrono::duration<double> diff = pointInTime - start;
-			std::cout << "Progress so far: " << i << " generations. (Running " << diff.count() << "s)" << std::endl;
+			std::cerr << "Progress so far: " << i << " generations. (Running " << diff.count() << "s)" << std::endl;
 		}
 
 		if (i % progressFactor == 0)
@@ -87,7 +87,7 @@ void runTokens()
 
 		output << i << ";" << diff.count() << ";" << winnerPair.second << std::endl;
 
-		nature.evolve(10);
+		nature.evolve(75, 25);
 	}
 
 	// Output the top candidate.
@@ -144,7 +144,7 @@ void runLSystems()
 	const std::list<Token> input = std::list<Token>({ Token('S'), Token('A'), Token('E') });
 
 	// Init the world.
-	//evolution::MotherNature<lsystem::LSystem> nature(evolution::simpleBreedFunction, evolution::distanceFitnessSystem(input));
+	//evolution::MotherNature<lsystem::LSystem> nature(evolution::simpleBreedSystem, evolution::distanceFitnessSystem(input));
 	evolution::MotherNature<lsystem::LSystem> nature(evolution::simpleBreedSystem, evolution::totalDistanceFitnessSystem(input));
 	buildInitialPopulation(nature);
 
@@ -181,7 +181,7 @@ void runLSystems()
 
 		output << i << ";" << diff.count() << ";" << winnerPair.second << std::endl;
 
-		nature.evolve(10);
+		nature.evolve(75, 25);
 	}
 
 	// Output the top candidate.

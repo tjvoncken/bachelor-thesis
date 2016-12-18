@@ -51,6 +51,12 @@ namespace evolution
 		// Loop through all productions from system _b.
 		mapSimpleProductions(_random, simpleProductions, _target, _b);
 
+		// Build a map of all valid tokens to be inserted into the productions.
+		// This is an optimization, which should greatly reduce non-sense tokens.
+		// Which should speed up interpretation of the string.
+		std::set<char> validTokens = std::set<char>({ 'R', 'L', 'F', 'B' });
+		for(auto it = simpleProductions.begin(); it != simpleProductions.end(); it++) { validTokens.insert(it->first); }
+
 		// Mutate the relevant productions.
 		// TODO: try possible optimization by not creating a production for every token, but creating them randomly. 
 		// TODO: (this should reduce the impact of garbage tokens by a large margin, and also open the system up for more mutation (better against local minima).)
@@ -98,9 +104,8 @@ namespace evolution
 
 					// Generate random char from A to Z and insert it randomly into the "to" token list.
 					// But make sure to not generate an S or an E, and leave those tokens alone.
-					auto alphabet = _random.getRandomDistribution(65, 78); //A-Z = 65-90
-					char c = alphabet();
-					while (c == 'S' || c == 'E') { c = alphabet(); }
+					auto alphabet = _random.getRandomDistribution(0, validTokens.size() - 1); //A-Z = 65-90
+					char c = *(std::next(validTokens.begin(), alphabet()));
 
 					auto cToken = lsystem::Token(c);
 

@@ -26,10 +26,11 @@ namespace evolution
 		unsigned int pathLength = totalPathLength(graph);
 
 		// Punish needless complexity, this should help performance a lot.
-		unsigned int pathScore = 4 * pathLength * pathLength;
+		unsigned int pathScore = 8 * pathLength;
+		unsigned int complexity = _complexity + _tokens.size();
 
-		if (pathScore <= _complexity) { return 0; }
-		else { return pathScore - _complexity; }
+		if (pathScore <= complexity) { return 0; }
+		else { return pathScore - complexity; }
 	}
 
 	/** {@inheritdoc} */

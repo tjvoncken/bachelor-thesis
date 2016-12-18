@@ -1,9 +1,10 @@
 #pragma once
 
-#include <utility>
-#include <vector>
 #include <memory>
 #include <random>
+#include <vector>
+#include <utility>
+#include <assert.h>
 #include <functional>
 
 #include "./RandomProvider.h"
@@ -44,7 +45,7 @@ namespace evolution
 			 * The old population will be discarded, and a new population will be bred to match the size of the old one.
 			 */
 			void evolve();
-			void evolve(unsigned int);
+			void evolve(unsigned int, unsigned int);
 
 			/** Get the top N members of the current population according to the given fitness function. */
 			std::vector<std::pair<T*, unsigned int>> getTop(unsigned int = 1);
@@ -61,7 +62,7 @@ namespace evolution
 		// Clear out the current population. The autoptrs should take care of the memory leaks.
 		this->population = std::vector<PMem>();
 
-		for (auto member : _population)
+		for(auto member : _population)
 		{
 			// Calculate the fitness for this new member.
 			auto fitness = this->fitnessFunction(member);
@@ -77,13 +78,13 @@ namespace evolution
 
 	/** {@inheritdoc} */
 	template <class T>
-	void MotherNature<T>::evolve() { this->evolve(this->population.size()); }
+	void MotherNature<T>::evolve() { this->evolve(this->population.size() - 25, 25); }
 
 	/** {@inheritdoc} */
 	template <class T>
-	void MotherNature<T>::evolve(unsigned int _base)
+	void MotherNature<T>::evolve(unsigned int _baseFertile, unsigned int _extraFertile)
 	{
-		if (_base == 0) { return; }
+		assert(_baseFertile + _extraFertile == this->population.size());
 
 		// 0. Pick with or without replacing? -- Picking with replacing for now because that makes it easier if pop size is odd.
 
@@ -91,16 +92,31 @@ namespace evolution
 		auto popSize = this->population.size();
 
 		// 2. Get the top N of the current population.
-		auto breedingTop = this->getTop(_base);
+		auto breedingTop = this->getTop(_baseFertile);
 		auto dist = this->quantum.getRandomDistribution(0, breedingTop.size() - 1);
 
 		// 5. Repeat from 3 until the new population has the size of the old one.
 		auto newPop = std::vector<T*>();
-		while(newPop.size() < popSize)
+		while(newPop.size() < _baseFertile)
 		{
 			// 3. Pick 2 with replacing out of the current population.
 			auto m1 = breedingTop.at(dist()).first;
 			auto m2 = breedingTop.at(dist()).first;
+
+			// 4. Breed the picked 2, insert the new member into the new population.
+			newPop.push_back(this->breedFunction(this->quantum, m1, m2));
+		}
+
+		// 2. Get the top N of the current population.
+		auto extraFertileTop = this->getTop(_extraFertile);
+		auto extraDist = this->quantum.getRandomDistribution(0, extraFertileTop.size() - 1);
+
+		// 5. Repeat from 3 until the new population has the size of the old one.
+		while (newPop.size() < popSize)
+		{
+			// 3. Pick 2 with replacing out of the current population.
+			auto m1 = extraFertileTop.at(extraDist()).first;
+			auto m2 = extraFertileTop.at(extraDist()).first;
 
 			// 4. Breed the picked 2, insert the new member into the new population.
 			newPop.push_back(this->breedFunction(this->quantum, m1, m2));
