@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utility>
 #include <vector>
 #include <memory>
 #include <random>
@@ -46,7 +47,7 @@ namespace evolution
 			void evolve(unsigned int);
 
 			/** Get the top N members of the current population according to the given fitness function. */
-			std::vector<T*> getTop(unsigned int = 1);
+			std::vector<std::pair<T*, unsigned int>> getTop(unsigned int = 1);
 	};
 
 	/** {@inheritdoc} */
@@ -98,8 +99,8 @@ namespace evolution
 		while(newPop.size() < popSize)
 		{
 			// 3. Pick 2 with replacing out of the current population.
-			auto m1 = breedingTop.at(dist());
-			auto m2 = breedingTop.at(dist());
+			auto m1 = breedingTop.at(dist()).first;
+			auto m2 = breedingTop.at(dist()).first;
 
 			// 4. Breed the picked 2, insert the new member into the new population.
 			newPop.push_back(this->breedFunction(this->quantum, m1, m2));
@@ -111,15 +112,15 @@ namespace evolution
 
 	/** {@inheritdoc} */
 	template <class T>
-	std::vector<T*> MotherNature<T>::getTop(unsigned int _n)
+	std::vector<std::pair<T*, unsigned int>> MotherNature<T>::getTop(unsigned int _n)
 	{
-		auto out = std::vector<lsystem::LSystem*>();
+		auto out = std::vector<std::pair<T*, unsigned int>>();
 
 		unsigned int i;
 		std::vector<PMem>::iterator it;
 		for (it = this->population.begin(), i = 0; it != this->population.end() && i < _n; it++, i++)
 		{
-			out.push_back(it->first.get());
+			out.push_back(std::pair<T*, unsigned int>(it->first.get(), it->second));
 		}
 
 		return out;

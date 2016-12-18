@@ -1,4 +1,4 @@
-#include "./distanceFitnessFunction.h"
+#include "./distanceFitness.h"
 
 #include <map>
 #include <list>
@@ -6,12 +6,12 @@
 #include <assert.h>
 #include <algorithm>
 
-#include "../../graph/Edge.h"
-#include "../../graph/Graph.h"
-#include "../../graph/Vertex.h"
+#include "../../../graph/Edge.h"
+#include "../../../graph/Graph.h"
+#include "../../../graph/Vertex.h"
 
-#include "../../maze/representation/graph/GraphBuilder.h"
-#include "../../maze/representation/graph/helper/MazeGraph.h"
+#include "../../../maze/representation/graph/GraphBuilder.h"
+#include "../../../maze/representation/graph/helper/MazeGraph.h"
 
 namespace evolution
 {
@@ -22,28 +22,21 @@ namespace evolution
 	std::list<const graph::Edge*> dijkstra(const graph::Graph& g, const graph::Vertex* from, const graph::Vertex* to);
 
 	/** {@inheritdoc} */
-	std::function<unsigned int (lsystem::LSystem*)> distanceFitnessFunction(const std::list<lsystem::Token>& input)
+	unsigned int distanceFitness(const std::list<lsystem::Token>& _tokens, unsigned int _complexity)
 	{
-		return [&](lsystem::LSystem* system) -> unsigned int
-		{
-			auto string = std::list <lsystem::Token>(input);
-			system->apply(string);
+		auto graph = maze::GraphBuilder::build(_tokens);
 
-			auto graph = maze::GraphBuilder::build(string);
+		// Punish hard for overstepping boundaries.
+		if(graph.dimX > 40 || graph.dimY > 12) { return 0; }
 
-			// Punish hard for overstepping boundaries.
-			if(graph.dimX > 40 || graph.dimY > 12) { return 0; }
+		// Return shortest path length.
+		unsigned int pathLength = shortestPathLength(graph);
 
-			// Return shortest path length.
-			unsigned int pathLength = shortestPathLength(graph);
+		// Punish needless complexity, this should help performance a lot.
+		unsigned int pathScore = pathLength * pathLength;
 
-			// Punish needless complexity, this should help performance a lot.
-			unsigned int pathScore = pathLength * pathLength;
-			unsigned int complexity = 2 * system->getRecursion() + system->getProductions().size();
-
-			if(pathScore < complexity) { return 0; }
-			else { return pathScore - complexity; }
-		};
+		if(pathScore <= _complexity) { return 0; }
+		else { return pathScore - _complexity; }
 	}
 
 	/** {@inheritdoc} */

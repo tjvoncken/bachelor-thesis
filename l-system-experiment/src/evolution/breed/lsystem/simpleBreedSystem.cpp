@@ -1,9 +1,9 @@
-#include "./simpleBreedFunction.h"
+#include "./simpleBreedSystem.h"
 
 #include <set>
 #include <random>
 
-#include "../../lsystem/production/SimpleProduction.h"
+#include "../../../lsystem/production/SimpleProduction.h"
 
 namespace evolution
 {
@@ -11,7 +11,7 @@ namespace evolution
 	void breedProductions(RandomProvider& _random, lsystem::LSystem* _target, const lsystem::LSystem* _a, const lsystem::LSystem* _b);
 
 	/** {@inheritdoc} */
-	lsystem::LSystem* simpleBreedFunction(RandomProvider& random, const lsystem::LSystem* _a, const lsystem::LSystem* _b)
+	lsystem::LSystem* simpleBreedSystem(RandomProvider& random, const lsystem::LSystem* _a, const lsystem::LSystem* _b)
 	{
 		auto system = new lsystem::LSystem();
 
@@ -32,8 +32,8 @@ namespace evolution
 		// Roll a virtual die.
 		auto dist = _random.getRandomDistribution(1, 6);
 		auto roll = dist(); // Dice roll :D
-	
-		// Do -1 if the roll was 1, +1 if was 6, nothing otherwise.
+
+							// Do -1 if the roll was 1, +1 if was 6, nothing otherwise.
 		if (roll == 1 && _target->getRecursion() > 1) { _target->setRecursion(_target->getRecursion() - 1); }
 		else if (roll == 6) { _target->setRecursion(_target->getRecursion() + 1); }
 	}
@@ -56,13 +56,13 @@ namespace evolution
 		// TODO: (this should reduce the impact of garbage tokens by a large margin, and also open the system up for more mutation (better against local minima).)
 		auto die = _random.getRandomDistribution(1, 100);
 		auto it = simpleProductions.begin();
-		while(it != simpleProductions.end())
+		while (it != simpleProductions.end())
 		{
 			// Roll a die.
 			auto actionRoll = die();
 
 			// 60% chance of not mutating at all.
-			if(actionRoll <= 60)
+			if (actionRoll <= 60)
 			{
 				// Do nothing in most cases, except duplicating the production.
 				it->second = it->second->clone();
@@ -73,9 +73,9 @@ namespace evolution
 				// If a previously unknown token was added, add an identity production for that token to the system.
 				auto production = it->second;
 				auto to = production->getTo();
-				auto from = production->getFrom();	
+				auto from = production->getFrom();
 
-				if(actionRoll > 60 && actionRoll <= 74)
+				if (actionRoll > 60 && actionRoll <= 74)
 				{
 					if (to.size() > 1)
 					{
@@ -86,13 +86,13 @@ namespace evolution
 						// Re-insert new production.
 						it->second = new lsystem::SimpleProduction(production->getFrom(), to);
 					}
-					else 
+					else
 					{
 						// Simply clone the production if there was into 1 "to" token.
 						it->second = it->second->clone();
 					}
 				}
-				else if(actionRoll > 74 && actionRoll <= 88)
+				else if (actionRoll > 74 && actionRoll <= 88)
 				{
 					// Add a token.
 
@@ -100,7 +100,7 @@ namespace evolution
 					// But make sure to not generate an S or an E, and leave those tokens alone.
 					auto alphabet = _random.getRandomDistribution(65, 78); //A-Z = 65-90
 					char c = alphabet();
-					while(c == 'S' || c == 'E') { c = alphabet(); }
+					while (c == 'S' || c == 'E') { c = alphabet(); }
 
 					auto cToken = lsystem::Token(c);
 
@@ -110,7 +110,7 @@ namespace evolution
 					// Re-insert new production(s)...
 					it->second = new lsystem::SimpleProduction(production->getFrom(), to);
 				}
-				else if(actionRoll > 88 && actionRoll <= 96)
+				else if (actionRoll > 88 && actionRoll <= 96)
 				{
 					// Convert the current production into a branch.
 					to.insert(to.begin(), lsystem::Token('['));
@@ -119,12 +119,12 @@ namespace evolution
 					// Re-insert new production.
 					it->second = new lsystem::SimpleProduction(production->getFrom(), to);
 				}
-				else if(actionRoll > 96)
+				else if (actionRoll > 96)
 				{
 					// Remove the production entirely.
 					it = simpleProductions.erase(it);
 				}
-			}	
+			}
 
 			// Increment pointer if we didn't delete the current one.
 			if (actionRoll <= 96) { it++; }
@@ -148,7 +148,7 @@ namespace evolution
 		}
 
 		// Insert production into _target.
-		for(auto it = simpleProductions.begin(); it != simpleProductions.end(); it++)
+		for (auto it = simpleProductions.begin(); it != simpleProductions.end(); it++)
 		{
 			_target->addProduction(it->second);
 		}

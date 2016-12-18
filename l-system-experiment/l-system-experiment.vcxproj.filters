@@ -69,16 +69,31 @@
     <ClInclude Include="src\evolution\MotherNature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\evolution\breed\simpleBreedFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\evolution\fitness\distanceFitnessFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\evolution\RandomProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\evolution\fitness\totalDistanceFitness.h">
+    <ClInclude Include="src\evolution\breed\lsystem\simpleBreedSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\breed\tokens\simpleBreedTokens.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\lsystem\distanceFitnessSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\lsystem\totalDistanceFitnessSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\tokens\distanceFitnessTokens.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\tokens\totalDistanceFitnessTokens.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\common\distanceFitness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\common\totalDistanceFitness.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,16 +140,31 @@
     <ClCompile Include="src\lsystem\LSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\evolution\breed\simpleBreedFunction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\evolution\fitness\distanceFitnessFunction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\evolution\RandomProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\evolution\fitness\totalDistanceFitness.cpp">
+    <ClCompile Include="src\evolution\breed\lsystem\simpleBreedSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\breed\tokens\simpleBreedTokens.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\lsystem\distanceFitnessSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\lsystem\totalDistanceFitnessSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\tokens\distanceFitnessTokens.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\tokens\totalDistanceFitnessTokens.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\common\distanceFitness.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\common\totalDistanceFitness.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

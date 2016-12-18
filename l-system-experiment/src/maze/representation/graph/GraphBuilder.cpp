@@ -77,7 +77,7 @@ namespace maze
 			if (vertex->type == VertexType::DEFAULT) { vertex->type = VertexType::END; }
 			else if (vertex->type == VertexType::START) { vertex->type = VertexType::CONFLICT; }
 
-			// Clear the type of the old start vertex.
+			// Clear the type of the old end vertex.
 			if(graph.end != 0)
 			{
 				if(graph.end->type == VertexType::END) { graph.end->type = VertexType::DEFAULT; }
@@ -106,8 +106,19 @@ namespace maze
 			auto oVertex = lookup.find(oState.position)->second;
 			auto nVertex = lookup.find(nState.position)->second;
 
-			// Link the vertices.
-			graph.createEdge<graph::Edge>(oVertex, nVertex, 1);
+			// Link the vertices, but prevent creating double vertices.
+			auto oEdges = oVertex->getEdges();
+			auto createEdge = true;
+			for(auto it = oEdges.begin(); it != oEdges.end(); it++)
+			{
+				if((*it)->a == nVertex || (*it)->b == nVertex) 
+				{ 
+					createEdge = false; 
+					break; 
+				}
+			}
+
+			if(createEdge) { graph.createEdge<graph::Edge>(oVertex, nVertex, 1); }
 
 			// Update the dimensions according to the new positions.
 			if(nState.position.x < minX) { minX = nState.position.x; }

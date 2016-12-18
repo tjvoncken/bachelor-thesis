@@ -111,9 +111,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\coordinates\grid\Vector.h" />
-    <ClInclude Include="src\evolution\fitness\distanceFitnessFunction.h" />
-    <ClInclude Include="src\evolution\breed\simpleBreedFunction.h" />
-    <ClInclude Include="src\evolution\fitness\totalDistanceFitness.h" />
+    <ClInclude Include="src\evolution\breed\tokens\simpleBreedTokens.h" />
+    <ClInclude Include="src\evolution\fitness\common\distanceFitness.h" />
+    <ClInclude Include="src\evolution\fitness\common\totalDistanceFitness.h" />
+    <ClInclude Include="src\evolution\fitness\lsystem\distanceFitnessSystem.h" />
+    <ClInclude Include="src\evolution\breed\lsystem\simpleBreedSystem.h" />
+    <ClInclude Include="src\evolution\fitness\lsystem\totalDistanceFitnessSystem.h" />
+    <ClInclude Include="src\evolution\fitness\tokens\distanceFitnessTokens.h" />
+    <ClInclude Include="src\evolution\fitness\tokens\totalDistanceFitnessTokens.h" />
     <ClInclude Include="src\evolution\MotherNature.h" />
     <ClInclude Include="src\evolution\RandomProvider.h" />
     <ClInclude Include="src\graph\Edge.h" />
@@ -136,9 +141,14 @@
   <ItemGroup>
     <ClCompile Include="src\coordinates\grid\Point.cpp" />
     <ClCompile Include="src\coordinates\grid\Vector.cpp" />
-    <ClCompile Include="src\evolution\breed\simpleBreedFunction.cpp" />
-    <ClCompile Include="src\evolution\fitness\distanceFitnessFunction.cpp" />
-    <ClCompile Include="src\evolution\fitness\totalDistanceFitness.cpp" />
+    <ClCompile Include="src\evolution\breed\lsystem\simpleBreedSystem.cpp" />
+    <ClCompile Include="src\evolution\breed\tokens\simpleBreedTokens.cpp" />
+    <ClCompile Include="src\evolution\fitness\common\distanceFitness.cpp" />
+    <ClCompile Include="src\evolution\fitness\common\totalDistanceFitness.cpp" />
+    <ClCompile Include="src\evolution\fitness\lsystem\distanceFitnessSystem.cpp" />
+    <ClCompile Include="src\evolution\fitness\lsystem\totalDistanceFitnessSystem.cpp" />
+    <ClCompile Include="src\evolution\fitness\tokens\distanceFitnessTokens.cpp" />
+    <ClCompile Include="src\evolution\fitness\tokens\totalDistanceFitnessTokens.cpp" />
     <ClCompile Include="src\evolution\RandomProvider.cpp" />
     <ClCompile Include="src\graph\Edge.cpp" />
     <ClCompile Include="src\graph\Graph.cpp" />
