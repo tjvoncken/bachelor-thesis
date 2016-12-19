@@ -10,6 +10,6 @@ namespace evolution
 	/**
 	 * TODO!
 	 */
-	using TVec = std::vector<lsystem::Token>;
-	TVec* simpleBreedTokens(RandomProvider& random, const TVec* _a, const TVec* _b);
+	using TokenString = std::vector<lsystem::Token>;
+	TokenString* simpleBreedTokens(RandomProvider& random, const TokenString* _a, const TokenString* _b);
 }

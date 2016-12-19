@@ -137,6 +137,7 @@
     <ClInclude Include="src\maze\representation\graph\helper\PointVertex.h" />
     <ClInclude Include="src\maze\representation\ascii\ASCIIBuilder.h" />
     <ClInclude Include="src\maze\representation\graph\helper\VertexType.h" />
+    <ClInclude Include="src\tests\helper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\coordinates\grid\Point.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="src\maze\definition\MazeTurtle.cpp" />
     <ClCompile Include="src\maze\representation\graph\helper\PointVertex.cpp" />
     <ClCompile Include="src\maze\representation\ascii\ASCIIBuilder.cpp" />
+    <ClCompile Include="src\tests\helper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,9 +9,9 @@ namespace evolution
 	const std::vector<char> validChars = {'R', 'L', 'F', 'B', '[', ']'};
 
 	/** {@inheritdoc} */
-	TVec* simpleBreedTokens(RandomProvider& _random, const TVec* _a, const TVec* _b)
+	TokenString* simpleBreedTokens(RandomProvider& _random, const TokenString* _a, const TokenString* _b)
 	{
-		auto tokens = new TVec({});
+		auto tokens = new TokenString({});
 		auto die = _random.getRandomDistribution(1, 2);
 
 		// Insert all tokens from a, when overlapping b, do a 50-50.
