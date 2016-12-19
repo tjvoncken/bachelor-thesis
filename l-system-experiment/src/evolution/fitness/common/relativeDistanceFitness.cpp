@@ -18,7 +18,7 @@ namespace evolution
 		unsigned int shortestPath = shortestPathLength(graph);
 
 		// Punish needless complexity, this should help performance a lot.
-		unsigned int pathScore = 3 * (totalPath - shortestPath) + 5 * shortestPath;
+		unsigned int pathScore = 4 * (totalPath - shortestPath) + 6 * shortestPath;
 		unsigned int complexity = _complexity + _tokens.size();
 
 		if (pathScore <= complexity) { return 0; }
