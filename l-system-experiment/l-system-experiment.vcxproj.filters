@@ -99,6 +99,18 @@
     <ClInclude Include="src\tests\helper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\evolution\fitness\common\fitness-helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\common\relativeDistanceFitness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\lsystem\relativeDistanceSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\evolution\fitness\tokens\relativeDistanceTokens.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -171,6 +183,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\tests\helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\common\fitness-helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\common\relativeDistanceFitness.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\lsystem\relativeDistanceSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\evolution\fitness\tokens\relativeDistanceTokens.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

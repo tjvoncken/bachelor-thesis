@@ -35,7 +35,7 @@ void buildInitialPopulation(evolution::MotherNature<lsystem::LSystem>& _nature, 
 }
 
 /** @inheritdoc */
-void runLSystemsTest(std::string _testName, unsigned int _population, unsigned int _generations, LSystemBreedFn _breedFn, LSystemFitnessFn _fitnessFn)
+void runLSystemsTest(std::string _testName, unsigned int _population, unsigned int _generations, unsigned int _dying, LSystemBreedFn _breedFn, LSystemFitnessFn _fitnessFn)
 {
 	// Open logging files.
 	std::ofstream csvOut;
@@ -87,7 +87,7 @@ void runLSystemsTest(std::string _testName, unsigned int _population, unsigned i
 
 		csvOut << i << ";" << diff.count() << ";" << winnerPair.second << std::endl;
 
-		nature.evolve(75, 25);
+		nature.evolve(_population - _dying, _dying);
 	}
 
 	// Output the eventual top candidate to the log, csv, and stdout.
@@ -116,7 +116,7 @@ void runLSystemsTest(std::string _testName, unsigned int _population, unsigned i
 }
 
 /** @inheritdoc */
-void runTokenStringTest(std::string _testName, unsigned int _population, unsigned int _generations, TokenStringBreedFn _breedFn, TokenStringFitnessFn _fitnessFn)
+void runTokenStringTest(std::string _testName, unsigned int _population, unsigned int _generations, unsigned int _dying, TokenStringBreedFn _breedFn, TokenStringFitnessFn _fitnessFn)
 {
 	// Open logging files.
 	std::ofstream csvOut;
@@ -171,7 +171,7 @@ void runTokenStringTest(std::string _testName, unsigned int _population, unsigne
 
 		csvOut << i << ";" << diff.count() << ";" << winnerPair.second << std::endl;
 
-		nature.evolve(75, 25);
+		nature.evolve(_population - _dying, _dying);
 	}
 
 	// Output the top candidate.
