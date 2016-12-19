@@ -22,12 +22,12 @@ int main()
 	runLSystemsTest("100-shortest-distance", 100, 10000, 25, evolution::simpleBreedSystem, evolution::distanceFitnessSystem);
 
 	// Run with the tests with the total-distance function.
-	runTokenStringTest("100-shortest-distance", 100, 100000, 25, evolution::simpleBreedTokens, evolution::totalDistanceFitnessTokens);
-	runLSystemsTest("100-shortest-distance", 100, 10000, 25, evolution::simpleBreedSystem, evolution::totalDistanceFitnessSystem);
+	runTokenStringTest("100-total-distance", 100, 100000, 25, evolution::simpleBreedTokens, evolution::totalDistanceFitnessTokens);
+	runLSystemsTest("100-total-distance", 100, 10000, 25, evolution::simpleBreedSystem, evolution::totalDistanceFitnessSystem);
 
 	// Run with the tests with the relative-distance function.
-	runTokenStringTest("100-shortest-distance", 100, 100000, 25, evolution::simpleBreedTokens, evolution::relativeDistanceFitnessTokens);
-	runLSystemsTest("100-shortest-distance", 100, 10000, 25, evolution::simpleBreedSystem, evolution::relativeDistanceFitnessSystem);
+	runTokenStringTest("100-relative-distance", 100, 100000, 25, evolution::simpleBreedTokens, evolution::relativeDistanceFitnessTokens);
+	runLSystemsTest("100-relative-distance", 100, 10000, 25, evolution::simpleBreedSystem, evolution::relativeDistanceFitnessSystem);
 
 	// POP = 500, GENS = 1000
 
@@ -36,12 +36,12 @@ int main()
 	runLSystemsTest("500-shortest-distance", 500, 1000, 100, evolution::simpleBreedSystem, evolution::distanceFitnessSystem);
 
 	// Run with the tests with the total-distance function.
-	runTokenStringTest("500-shortest-distance", 500, 10000, 100, evolution::simpleBreedTokens, evolution::totalDistanceFitnessTokens);
-	runLSystemsTest("500-shortest-distance", 500, 1000, 100, evolution::simpleBreedSystem, evolution::totalDistanceFitnessSystem);
+	runTokenStringTest("500-total-distance", 500, 10000, 100, evolution::simpleBreedTokens, evolution::totalDistanceFitnessTokens);
+	runLSystemsTest("500-total-distance", 500, 1000, 100, evolution::simpleBreedSystem, evolution::totalDistanceFitnessSystem);
 
 	// Run with the tests with the relative-distance function.
-	runTokenStringTest("500-shortest-distance", 500, 10000, 100, evolution::simpleBreedTokens, evolution::relativeDistanceFitnessTokens);
-	runLSystemsTest("500-shortest-distance", 500, 1000, 100, evolution::simpleBreedSystem, evolution::relativeDistanceFitnessSystem);
+	runTokenStringTest("500-relative-distance", 500, 10000, 100, evolution::simpleBreedTokens, evolution::relativeDistanceFitnessTokens);
+	runLSystemsTest("500-relative-distance", 500, 1000, 100, evolution::simpleBreedSystem, evolution::relativeDistanceFitnessSystem);
 
 	return 0;
 }

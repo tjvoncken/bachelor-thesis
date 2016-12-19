@@ -42,7 +42,7 @@ void runLSystemsTest(std::string _testName, unsigned int _population, unsigned i
 	csvOut.open("./results-systems-" + _testName + ".csv", std::ios::out | std::ios::trunc);
 
 	std::ofstream logOut;
-	csvOut.open("./results-systems-" + _testName + ".log", std::ios::out | std::ios::trunc);
+	logOut.open("./results-systems-" + _testName + ".log", std::ios::out | std::ios::trunc);
 
 	// Start timer and initialize the default input string for the system.
 	auto start = std::chrono::system_clock::now();
@@ -50,7 +50,7 @@ void runLSystemsTest(std::string _testName, unsigned int _population, unsigned i
 
 	// Init the world.
 	evolution::MotherNature<LSystem> nature(_breedFn, _fitnessFn(input));
-	buildInitialPopulation(nature, 100);
+	buildInitialPopulation(nature, _population);
 
 	// Run for about N generations.
 	auto percentageFactor = (int)(round(_generations / 100));
@@ -123,7 +123,7 @@ void runTokenStringTest(std::string _testName, unsigned int _population, unsigne
 	csvOut.open("./results-tokens-" + _testName + ".csv", std::ios::out | std::ios::trunc);
 
 	std::ofstream logOut;
-	csvOut.open("./results-tokens-" + _testName + ".log", std::ios::out | std::ios::trunc);
+	logOut.open("./results-tokens-" + _testName + ".log", std::ios::out | std::ios::trunc);
 
 	// Start timer.
 	auto start = std::chrono::system_clock::now();
