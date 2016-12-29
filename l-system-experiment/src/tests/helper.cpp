@@ -39,10 +39,12 @@ void runLSystemsTest(std::string _testName, unsigned int _population, unsigned i
 {
 	// Open logging files.
 	std::ofstream csvOut;
-	csvOut.open("./results-systems-" + _testName + ".csv", std::ios::out | std::ios::trunc);
+	csvOut.open(_testName + "-systems.csv", std::ios::out | std::ios::trunc);
+	if (!csvOut.is_open()) { std::cerr << "Unable to open CSV file for \"" << _testName << "\"." << std::endl; return; }
 
 	std::ofstream logOut;
-	logOut.open("./results-systems-" + _testName + ".log", std::ios::out | std::ios::trunc);
+	logOut.open(_testName + "-systems.log", std::ios::out | std::ios::trunc);
+	if (!logOut.is_open()) { std::cerr << "Unable to open log file for \"" << _testName << "\"." << std::endl; return; }
 
 	// Start timer and initialize the default input string for the system.
 	auto start = std::chrono::system_clock::now();
@@ -120,10 +122,12 @@ void runTokenStringTest(std::string _testName, unsigned int _population, unsigne
 {
 	// Open logging files.
 	std::ofstream csvOut;
-	csvOut.open("./results-tokens-" + _testName + ".csv", std::ios::out | std::ios::trunc);
+	csvOut.open(_testName + "-tokens.csv", std::ios::out | std::ios::trunc);
+	if(!csvOut.is_open()) { std::cerr << "Unable to open CSV file for \"" << _testName << "\"." << std::endl; return; }
 
 	std::ofstream logOut;
-	logOut.open("./results-tokens-" + _testName + ".log", std::ios::out | std::ios::trunc);
+	logOut.open(_testName + "-tokens.log", std::ios::out | std::ios::trunc);
+	if(!logOut.is_open()) { std::cerr << "Unable to open log file for \"" << _testName << "\"." << std::endl; return; }
 
 	// Start timer.
 	auto start = std::chrono::system_clock::now();

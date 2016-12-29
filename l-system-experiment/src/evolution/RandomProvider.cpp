@@ -1,11 +1,21 @@
 #include "./RandomProvider.h"
 
 #include <assert.h>
+#include <algorithm>
 
 namespace evolution
 {
 	/** {@inheritdoc} */
-	RandomProvider::RandomProvider() : randomGenerator() {}
+	RandomProvider::RandomProvider()
+	{
+		// Gather enough random data to init the entire random generator.
+		std::vector<unsigned int> seedData(std::mt19937::state_size);
+		std::generate(begin(seedData), end(seedData), [&]() { return this->device(); });
+		std::seed_seq seedSequence(begin(seedData), end(seedData));
+
+		// Initialize random generator with as much random data as possible.
+		this->randomGenerator = std::mt19937(seedSequence);
+	}
 
 	/** {@inheritdoc} */
 	RandomProvider::~RandomProvider() 
